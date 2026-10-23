@@ -11,18 +11,18 @@
   <style>
     /* ===== CSS CUSTOM PROPERTIES ===== */
     :root {
-      --color-bg: #FAF8F9;
+      --color-bg: #FAF9FD;
       --color-surface: #FFFFFF;
-      --color-border: #EAE2E6;
-      --color-border-subtle: #F3ECF0;
-      --color-primary: #6B1D3A;
-      --color-primary-hover: #85264A;
-      --color-primary-light: #FDF2F5;
-      --color-primary-pale: #F5E6EB;
-      --color-primary-border: #E8C5D0;
-      --color-text: #1E1518;
-      --color-text-muted: #6E5D63;
-      --color-text-light: #9B8890;
+      --color-border: #E8E3F5;
+      --color-border-subtle: #F1EDFA;
+      --color-primary: #5400DC;
+      --color-primary-hover: #4500B5;
+      --color-primary-light: #F5F0FF;
+      --color-primary-pale: #ECE4FC;
+      --color-primary-border: #D4C2F8;
+      --color-text: #171226;
+      --color-text-muted: #645D78;
+      --color-text-light: #948CA8;
       --color-wa: #16A34A;
       --color-wa-hover: #15803D;
       --color-info-bg: #FEF9E7;
@@ -31,10 +31,10 @@
       --color-success: #16A34A;
       --color-success-light: #F0FDF4;
       --color-success-border: #BBF7D0;
-      --shadow-sm: 0 1px 3px rgba(90, 24, 48, 0.04);
-      --shadow-md: 0 4px 16px rgba(90, 24, 48, 0.06);
-      --shadow-lg: 0 8px 32px rgba(90, 24, 48, 0.09);
-      --shadow-card: 0 2px 8px rgba(90, 24, 48, 0.04), 0 1px 2px rgba(90, 24, 48, 0.02);
+      --shadow-sm: 0 1px 3px rgba(84, 0, 220, 0.04);
+      --shadow-md: 0 4px 16px rgba(84, 0, 220, 0.06);
+      --shadow-lg: 0 8px 32px rgba(84, 0, 220, 0.09);
+      --shadow-card: 0 2px 8px rgba(84, 0, 220, 0.04), 0 1px 2px rgba(84, 0, 220, 0.02);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
@@ -98,11 +98,11 @@
         padding: 0 36px 48px;
         background: var(--color-surface);
         border-radius: 24px;
-        border: 1px solid rgba(107, 29, 58, 0.08);
+        border: 1px solid rgba(84, 0, 220, 0.08);
         box-shadow: 
-          0 1px 2px rgba(90, 24, 48, 0.02),
-          0 8px 24px rgba(90, 24, 48, 0.05),
-          0 20px 48px rgba(90, 24, 48, 0.06);
+          0 1px 2px rgba(84, 0, 220, 0.02),
+          0 8px 24px rgba(84, 0, 220, 0.05),
+          0 20px 48px rgba(84, 0, 220, 0.06);
       }
       .app-wrapper.admin-wide {
         max-width: 900px;
@@ -160,7 +160,7 @@
       font-weight: 800;
       font-size: 21px;
       letter-spacing: -0.04em;
-      box-shadow: 0 2px 8px rgba(107, 29, 58, 0.25);
+      box-shadow: 0 2px 8px rgba(84, 0, 220, 0.25);
       flex-shrink: 0;
       overflow: hidden;
     }
@@ -254,19 +254,19 @@
     .btn-primary {
       background: var(--color-primary);
       color: #fff;
-      box-shadow: 0 2px 8px rgba(107, 29, 58, 0.18);
+      box-shadow: 0 2px 8px rgba(84, 0, 220, 0.18);
     }
     .btn-primary:hover {
       background: var(--color-primary-hover);
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(107, 29, 58, 0.24);
+      box-shadow: 0 4px 16px rgba(84, 0, 220, 0.24);
     }
     .btn-primary:active {
       transform: translateY(0);
-      box-shadow: 0 1px 4px rgba(107, 29, 58, 0.16);
+      box-shadow: 0 1px 4px rgba(84, 0, 220, 0.16);
     }
     .btn-primary:disabled {
-      background: #CDB9C0;
+      background: #C8BEDB;
       box-shadow: none;
       cursor: not-allowed;
       transform: none;
@@ -287,7 +287,7 @@
     }
     .btn-outline-neutral:hover {
       background: var(--color-bg);
-      border-color: #CBB4BC;
+      border-color: #C5B4E3;
     }
     .btn-wa {
       background: var(--color-wa);
@@ -525,7 +525,7 @@
     .form-input::placeholder { color: var(--color-text-light); }
     .form-input:focus {
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(107, 29, 58, 0.10);
+      box-shadow: 0 0 0 3px rgba(84, 0, 220, 0.10);
     }
     .form-input.invalid {
       border-color: #DC2626;
@@ -567,14 +567,14 @@
       user-select: none;
     }
     .option-card:hover {
-      border-color: #CBB4BC;
-      background: #FEFAFB;
+      border-color: #C5B4E3;
+      background: #FAF8FF;
       transform: translateY(-1px);
     }
     .option-card.selected {
       border-color: var(--color-primary);
       background: var(--color-primary-light);
-      box-shadow: 0 2px 8px rgba(107, 29, 58, 0.08);
+      box-shadow: 0 2px 8px rgba(84, 0, 220, 0.08);
     }
     .option-badge {
       width: 32px;
@@ -781,7 +781,7 @@
     }
     .chart-fill {
       height: 100%;
-      background: #C4A6B0;
+      background: #C8BEDB;
       border-radius: 99px;
       transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -876,7 +876,7 @@
       padding: 24px 20px 32px;
       transform: translateY(100%);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 -8px 40px rgba(90, 24, 48, 0.16);
+      box-shadow: 0 -8px 40px rgba(84, 0, 220, 0.16);
     }
     .modal-overlay.open .modal-sheet { transform: translateY(0); }
     @media (min-width: 640px) {
@@ -886,7 +886,7 @@
         max-height: 85vh;
         padding: 30px 32px;
         transform: translateY(20px) scale(0.97);
-        box-shadow: 0 20px 60px rgba(90, 24, 48, 0.22);
+        box-shadow: 0 20px 60px rgba(84, 0, 220, 0.22);
       }
       .modal-overlay.open .modal-sheet { transform: translateY(0) scale(1); }
       .modal-handle { display: none; }
@@ -1025,7 +1025,7 @@
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #DDD3D7; border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: #C4A6B0; }
+    ::-webkit-scrollbar-thumb:hover { background: #C8BEDB; }
   </style>
 </head>
 <body>
@@ -1614,21 +1614,21 @@ const QUESTIONS = [
 // ---- RESULT PROFILES ----
 const PROFILES = {
   MATH: {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B1D3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5400DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
     descMain: "Kamu menunjukkan kecenderungan lebih besar pada aktivitas yang melibatkan angka, pola, logika, strategi, dan pemecahan masalah.",
     subdesc: "Anak dengan kecenderungan ini biasanya menikmati tantangan yang membutuhkan proses berpikir dan mencari solusi.",
     potentials: ["Logical Thinking", "Problem Solving", "Mathematical Thinking", "Strategic Thinking"],
     rekomendasi: "Kamu dapat mencoba aktivitas Math yang dikemas melalui permainan, tantangan, dan problem solving agar kemampuan berpikir logismu semakin berkembang."
   },
   CODING: {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B1D3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5400DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
     descMain: "Kamu menunjukkan kecenderungan kuat pada teknologi, cara kerja sistem, pembuatan game/program, dan penyelesaian masalah secara terstruktur.",
     subdesc: "Anak dengan kecenderungan ini biasanya senang bereksperimen membuat sesuatu hingga berhasil berfungsi.",
     potentials: ["Computational Thinking", "Problem Solving", "Algorithmic Logic", "Tech Exploration"],
     rekomendasi: "Kamu dapat mencoba aktivitas Coding melalui pembuatan game interaktif, animasi terprogram, dan proyek teknologi yang mengasah logika pemrograman."
   },
   DESIGN: {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B1D3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M7 16l4-4 3 3 2-2 1 1"/></svg>`,
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5400DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M7 16l4-4 3 3 2-2 1 1"/></svg>`,
     descMain: "Kamu menunjukkan kecenderungan tinggi pada kreativitas visual, kepekaan warna, bentuk, imajinasi, dan penciptaan karya yang unik.",
     subdesc: "Anak dengan kecenderungan ini biasanya ekspresif dan senang mengubah ide di kepalanya menjadi karya visual yang menarik.",
     potentials: ["Creative Thinking", "Visual Communication", "Design Sense", "Imagination & Ideation"],
@@ -2197,7 +2197,7 @@ function openParticipantDetail(id) {
     </div>
 
     <!-- 4. REKOMENDASI -->
-    <div class="card" style="margin-bottom:16px;padding:18px;background:var(--color-primary-light);border-color:#E0C0CB;">
+    <div class="card" style="margin-bottom:16px;padding:18px;background:var(--color-primary-light);border-color:#D4C2F8;">
       <h3 style="font-size:13.5px;font-weight:700;color:var(--color-primary);margin-bottom:6px;">Rekomendasi Eksplorasi</h3>
       <p style="font-size:13px;color:var(--color-text-muted);line-height:1.6;">${profile.rekomendasi}</p>
     </div>
@@ -2354,12 +2354,12 @@ async function renderCanvasJPEG(participant) {
   canvas.height = 1350;
   const ctx = canvas.getContext('2d');
 
-  const C_PRIMARY = '#6B1D3A';
-  const C_PRIMARY_LIGHT = '#FDF2F5';
-  const C_BG = '#FAF8F9';
-  const C_TEXT = '#1E1518';
-  const C_MUTED = '#6E5D63';
-  const C_BORDER = '#EAE2E6';
+  const C_PRIMARY = '#5400DC';
+  const C_PRIMARY_LIGHT = '#F5F0FF';
+  const C_BG = '#FAF9FD';
+  const C_TEXT = '#171226';
+  const C_MUTED = '#645D78';
+  const C_BORDER = '#E8E3F5';
   const C_WHITE = '#FFFFFF';
 
   // ---- BACKGROUND ----
@@ -2427,7 +2427,7 @@ async function renderCanvasJPEG(participant) {
   ctx.fillStyle = C_WHITE;
   roundRect(ctx, cardX, heroCardY, cardW, heroCardH, 20);
   ctx.fill();
-  ctx.strokeStyle = '#E8C5D0';
+  ctx.strokeStyle = '#D4C2F8';
   ctx.lineWidth = 1.5;
   roundRect(ctx, cardX, heroCardY, cardW, heroCardH, 20);
   ctx.stroke();
@@ -2514,7 +2514,7 @@ async function renderCanvasJPEG(participant) {
     roundRect(ctx, barLeft, by + 8, barW, barH, 6);
     ctx.fill();
 
-    ctx.fillStyle = b.dom ? C_PRIMARY : '#CDB9C0';
+    ctx.fillStyle = b.dom ? C_PRIMARY : '#C8BEDB';
     const fw = Math.max((b.val / 100) * barW, barH);
     roundRect(ctx, barLeft, by + 8, fw, barH, 6);
     ctx.fill();
@@ -2551,7 +2551,7 @@ async function renderCanvasJPEG(participant) {
     ctx.fillStyle = C_PRIMARY_LIGHT;
     roundRect(ctx, px, py, potW, 42, 10);
     ctx.fill();
-    ctx.strokeStyle = '#E8C5D0';
+    ctx.strokeStyle = '#D4C2F8';
     ctx.lineWidth = 1;
     roundRect(ctx, px, py, potW, 42, 10);
     ctx.stroke();
@@ -2579,7 +2579,7 @@ async function renderCanvasJPEG(participant) {
   ctx.fillStyle = C_PRIMARY_LIGHT;
   roundRect(ctx, cardX, rekCardY, cardW, rekCardH, 20);
   ctx.fill();
-  ctx.strokeStyle = '#E8C5D0';
+  ctx.strokeStyle = '#D4C2F8';
   ctx.lineWidth = 1;
   roundRect(ctx, cardX, rekCardY, cardW, rekCardH, 20);
   ctx.stroke();
@@ -2694,7 +2694,7 @@ async function renderDocumentPDF(participant) {
   const col = W - margin * 2;
 
   // ---- HEADER STRIP ----
-  doc.setFillColor(107, 29, 58);
+  doc.setFillColor(84, 0, 220);
   doc.rect(0, 0, W, 36, 'F');
 
   // Logo: Load user image if present, else clean white 'A'
@@ -2733,7 +2733,7 @@ async function renderDocumentPDF(participant) {
   doc.text('ALGONOVA', margin + 24, 17);
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(225, 195, 205);
+  doc.setTextColor(215, 195, 255);
   doc.text('LEARNING ASSESSMENT', margin + 24, 23);
 
   // ET badge
@@ -2745,52 +2745,52 @@ async function renderDocumentPDF(participant) {
   // Date
   doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(200, 170, 180);
+  doc.setTextColor(195, 175, 245);
   doc.text(participant.tanggal || formatDateID(new Date()), W - margin, 29, { align: 'right' });
 
   let y = 46;
 
   // ---- TITLE SECTION ----
-  doc.setFillColor(253, 242, 245);
-  doc.setDrawColor(232, 197, 208);
+  doc.setFillColor(245, 240, 255);
+  doc.setDrawColor(212, 194, 248);
   doc.roundedRect(margin, y, col, 28, 4, 4, 'FD');
-  doc.setTextColor(107, 29, 58);
+  doc.setTextColor(84, 0, 220);
   doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
   doc.text('HASIL MINI INTEREST ASSESSMENT', margin + col / 2, y + 8, { align: 'center' });
   doc.setFontSize(15);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 21, 24);
+  doc.setTextColor(23, 18, 38);
   doc.text(`Hasil untuk ${nama}`, margin + col / 2, y + 20, { align: 'center' });
   y += 34;
 
   // Meta info
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(110, 93, 99);
+  doc.setTextColor(100, 93, 120);
   doc.text(`${usia} Tahun  •  ${sekolah}  •  ${participant.tanggal || formatDateID(new Date())}`, margin + col / 2, y, { align: 'center' });
   y += 10;
 
   // ---- DOMINANT RESULT CARD ----
   doc.setFillColor(255, 255, 255);
-  doc.setDrawColor(232, 197, 208);
+  doc.setDrawColor(212, 194, 248);
   doc.roundedRect(margin, y, col, 44, 4, 4, 'FD');
-  doc.setFillColor(107, 29, 58);
+  doc.setFillColor(84, 0, 220);
   doc.rect(margin, y, 4, 44, 'F');
 
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(110, 93, 99);
+  doc.setTextColor(100, 93, 120);
   doc.text('KECENDERUNGAN SAAT INI', margin + 10, y + 9);
 
   doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(107, 29, 58);
+  doc.setTextColor(84, 0, 220);
   doc.text(dominant, margin + 10, y + 24);
 
   const pillLabel = `Kecenderungan Minat: ${dominant}`;
   const pillW2 = doc.getTextWidth(pillLabel) + 12;
-  doc.setFillColor(107, 29, 58);
+  doc.setFillColor(84, 0, 220);
   doc.roundedRect(margin + 10, y + 28, pillW2, 8, 4, 4, 'F');
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'bold');
@@ -2802,7 +2802,7 @@ async function renderDocumentPDF(participant) {
   // ---- DESC ----
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(30, 21, 24);
+  doc.setTextColor(23, 18, 38);
   const descLines2 = doc.splitTextToSize(profile.descMain, col);
   doc.text(descLines2, margin, y);
   y += descLines2.length * 5 + 6;
@@ -2814,11 +2814,11 @@ async function renderDocumentPDF(participant) {
 
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 21, 24);
+  doc.setTextColor(23, 18, 38);
   doc.text('Kecenderungan Minat', margin + 8, y + 9);
   doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(110, 93, 99);
+  doc.setTextColor(100, 93, 120);
   doc.text('Total persentase 100% dari 10 indikator jawaban', margin + 8, y + 16);
 
   const chartBars2 = [
@@ -2831,13 +2831,13 @@ async function renderDocumentPDF(participant) {
     const by2 = y + 22 + i * 9;
     doc.setFontSize(8);
     doc.setFont('helvetica', b.dom ? 'bold' : 'normal');
-    doc.setTextColor(b.dom ? 107 : 110, b.dom ? 29 : 93, b.dom ? 58 : 99);
+    doc.setTextColor(b.dom ? 84 : 100, b.dom ? 0 : 93, b.dom ? 220 : 120);
     doc.text(b.label, barLeft2, by2 + 4);
-    doc.setTextColor(b.dom ? 107 : 110, b.dom ? 29 : 110, b.dom ? 58 : 99);
+    doc.setTextColor(b.dom ? 84 : 100, b.dom ? 0 : 93, b.dom ? 220 : 120);
     doc.text(`${b.val}%`, barLeft2 + barW2 + 12, by2 + 4);
     doc.setFillColor(235, 228, 231);
     doc.roundedRect(barLeft2 + 22, by2, barW2, barH2, 2, 2, 'F');
-    doc.setFillColor(b.dom ? 107 : 196, b.dom ? 29 : 166, b.dom ? 58 : 176);
+    doc.setFillColor(b.dom ? 84 : 197, b.dom ? 0 : 180, b.dom ? 220 : 227);
     doc.roundedRect(barLeft2 + 22, by2, Math.max((b.val / 100) * barW2, 3), barH2, 2, 2, 'F');
   });
   y += 54;
@@ -2849,11 +2849,11 @@ async function renderDocumentPDF(participant) {
   doc.roundedRect(margin, y, col, 14 + subDescLines.length * 5, 4, 4, 'FD');
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 21, 24);
+  doc.setTextColor(23, 18, 38);
   doc.text('Apa artinya?', margin + 8, y + 9);
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(110, 93, 99);
+  doc.setTextColor(100, 93, 120);
   doc.text(subDescLines, margin + 8, y + 17);
   y += 14 + subDescLines.length * 5 + 6;
 
@@ -2863,44 +2863,44 @@ async function renderDocumentPDF(participant) {
   doc.roundedRect(margin, y, col, 38, 4, 4, 'FD');
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 21, 24);
+  doc.setTextColor(23, 18, 38);
   doc.text('Potensi yang dapat dikembangkan', margin + 8, y + 9);
   const potHalf = (col - 16 - 8) / 2;
   profile.potentials.forEach((p, i) => {
     const col2 = i % 2, row2 = Math.floor(i / 2);
     const px2 = margin + 8 + col2 * (potHalf + 8);
     const py2 = y + 14 + row2 * 11;
-    doc.setFillColor(253, 242, 245);
-    doc.setDrawColor(232, 197, 208);
+    doc.setFillColor(245, 240, 255);
+    doc.setDrawColor(212, 194, 248);
     doc.roundedRect(px2, py2, potHalf, 9, 2, 2, 'FD');
-    doc.setFillColor(107, 29, 58);
+    doc.setFillColor(84, 0, 220);
     doc.circle(px2 + 5, py2 + 4.5, 1.2, 'F');
     doc.setFontSize(7.5);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 21, 24);
+    doc.setTextColor(23, 18, 38);
     doc.text(p, px2 + 9, py2 + 6.5);
   });
   y += 44;
 
   // ---- REKOMENDASI ----
-  doc.setFillColor(253, 242, 245);
-  doc.setDrawColor(232, 197, 208);
+  doc.setFillColor(245, 240, 255);
+  doc.setDrawColor(212, 194, 248);
   const rekLines = doc.splitTextToSize(profile.rekomendasi, col - 16);
   doc.roundedRect(margin, y, col, 13 + rekLines.length * 5, 4, 4, 'FD');
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(107, 29, 58);
+  doc.setTextColor(84, 0, 220);
   doc.text('Rekomendasi Eksplorasi', margin + 8, y + 8);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
-  doc.setTextColor(110, 93, 99);
+  doc.setTextColor(100, 93, 120);
   doc.text(rekLines, margin + 8, y + 16);
   y += 13 + rekLines.length * 5 + 6;
 
   // ---- FOOTER CTA ----
   const remaining = H - 14 - y;
   const ctaH = Math.max(remaining, 26);
-  doc.setFillColor(107, 29, 58);
+  doc.setFillColor(84, 0, 220);
   doc.roundedRect(margin, y, col, ctaH, 4, 4, 'F');
   doc.setFontSize(9.5);
   doc.setFont('helvetica', 'bold');
@@ -2908,7 +2908,7 @@ async function renderDocumentPDF(participant) {
   doc.text('Yuk, Eksplorasi Secara Langsung!', margin + col / 2, y + 10, { align: 'center' });
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(220, 190, 200);
+  doc.setTextColor(215, 195, 255);
   doc.text('Hubungi Algonova via WhatsApp:', margin + col / 2, y + 17, { align: 'center' });
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
