@@ -1,0 +1,15 @@
+{
+  "name": "algonova-learning-assessment",
+  "version": "1.0.0",
+  "description": "Algonova Learning Assessment with Express and Neon DB",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

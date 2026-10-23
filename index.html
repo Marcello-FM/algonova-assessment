@@ -28,6 +28,9 @@
       --color-info-bg: #FEF9E7;
       --color-info-border: #F3E0A2;
       --color-info-text: #7A6510;
+      --color-success: #16A34A;
+      --color-success-light: #F0FDF4;
+      --color-success-border: #BBF7D0;
       --shadow-sm: 0 1px 3px rgba(90, 24, 48, 0.04);
       --shadow-md: 0 4px 16px rgba(90, 24, 48, 0.06);
       --shadow-lg: 0 8px 32px rgba(90, 24, 48, 0.09);
@@ -61,7 +64,6 @@
     }
     @media (min-width: 768px) {
       body {
-        /* Latar belakang desktop yang elegan & nyaman di mata */
         background: #F4EFF2;
         background-image: 
           radial-gradient(at 50% 0%, rgba(253, 242, 245, 0.85) 0px, transparent 65%),
@@ -74,19 +76,9 @@
         padding: 36px 16px 64px;
       }
     }
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    button {
-      font-family: var(--font);
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-    input, select, textarea {
-      font-family: var(--font);
-    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+    input, select, textarea { font-family: var(--font); }
 
     /* ===== LAYOUT & WRAPPER ===== */
     .app-wrapper {
@@ -111,6 +103,9 @@
           0 1px 2px rgba(90, 24, 48, 0.02),
           0 8px 24px rgba(90, 24, 48, 0.05),
           0 20px 48px rgba(90, 24, 48, 0.06);
+      }
+      .app-wrapper.admin-wide {
+        max-width: 900px;
       }
     }
     .container {
@@ -167,6 +162,7 @@
       letter-spacing: -0.04em;
       box-shadow: 0 2px 8px rgba(107, 29, 58, 0.25);
       flex-shrink: 0;
+      overflow: hidden;
     }
     .logo-text .brand-name {
       font-size: 15px;
@@ -234,9 +230,7 @@
       transition: border-color var(--transition);
     }
     @media (min-width: 768px) {
-      .card {
-        padding: 24px;
-      }
+      .card { padding: 24px; }
     }
 
     /* ===== BUTTONS ===== */
@@ -305,12 +299,8 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 14px rgba(22, 163, 74, 0.24);
     }
-    .btn-wa:active {
-      transform: translateY(0);
-    }
-    .btn-full {
-      width: 100%;
-    }
+    .btn-wa:active { transform: translateY(0); }
+    .btn-full { width: 100%; }
     .btn-sm {
       padding: 7px 14px;
       font-size: 13px;
@@ -318,15 +308,13 @@
       border-radius: var(--radius-sm);
     }
 
-    /* ===== LANDING PAGE SPECIFIC ===== */
+    /* ===== LANDING PAGE ===== */
     .landing-hero {
       text-align: center;
       padding: 6px 0 22px;
     }
     @media (min-width: 768px) {
-      .landing-hero {
-        padding: 10px 0 28px;
-      }
+      .landing-hero { padding: 10px 0 28px; }
     }
     .category-grid {
       display: grid;
@@ -335,10 +323,7 @@
       margin-bottom: 16px;
     }
     @media (min-width: 768px) {
-      .category-grid {
-        gap: 16px;
-        margin-bottom: 20px;
-      }
+      .category-grid { gap: 16px; margin-bottom: 20px; }
     }
     .category-card {
       background: var(--color-surface);
@@ -354,9 +339,7 @@
       transition: all var(--transition);
     }
     @media (min-width: 768px) {
-      .category-card {
-        padding: 20px 14px;
-      }
+      .category-card { padding: 20px 14px; }
       .category-card:hover {
         transform: translateY(-2px);
         box-shadow: var(--shadow-md);
@@ -375,11 +358,7 @@
       flex-shrink: 0;
     }
     @media (min-width: 768px) {
-      .category-icon-box {
-        width: 46px;
-        height: 46px;
-        margin-bottom: 12px;
-      }
+      .category-icon-box { width: 46px; height: 46px; margin-bottom: 12px; }
     }
     .category-name {
       font-size: 13.5px;
@@ -389,9 +368,7 @@
       margin-bottom: 3px;
     }
     @media (min-width: 768px) {
-      .category-name {
-        font-size: 15px;
-      }
+      .category-name { font-size: 15px; }
     }
     .category-desc {
       font-size: 11px;
@@ -400,9 +377,7 @@
       line-height: 1.35;
     }
     @media (min-width: 768px) {
-      .category-desc {
-        font-size: 12.5px;
-      }
+      .category-desc { font-size: 12.5px; }
     }
 
     .info-box {
@@ -415,10 +390,7 @@
       gap: 12px;
       align-items: flex-start;
     }
-    .info-box svg {
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
+    .info-box svg { flex-shrink: 0; margin-top: 2px; }
     .info-box-text {
       font-size: 13px;
       color: var(--color-info-text);
@@ -435,10 +407,7 @@
       box-shadow: var(--shadow-sm);
     }
     @media (min-width: 768px) {
-      .highlight-card {
-        padding: 24px;
-        margin-bottom: 24px;
-      }
+      .highlight-card { padding: 24px; margin-bottom: 24px; }
     }
     .highlight-badge-row {
       display: flex;
@@ -472,9 +441,7 @@
       margin-bottom: 14px;
     }
     @media (min-width: 768px) {
-      .highlight-heading {
-        font-size: 16.5px;
-      }
+      .highlight-heading { font-size: 16.5px; }
     }
     .highlight-list {
       display: flex;
@@ -490,10 +457,7 @@
       color: var(--color-text-muted);
       line-height: 1.5;
     }
-    .highlight-list-item svg {
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
+    .highlight-list-item svg { flex-shrink: 0; margin-top: 3px; }
     .highlight-trial-box {
       background: var(--color-primary-light);
       border: 1px solid var(--color-primary-border);
@@ -549,20 +513,16 @@
       padding: 10px 14px;
       border: 1.5px solid var(--color-border);
       border-radius: 10px;
-      font-size: 16px; /* Mencegah auto-zoom di iOS iPhone */
+      font-size: 16px; /* Mencegah auto-zoom di iOS */
       color: var(--color-text);
       background: var(--color-surface);
       outline: none;
       transition: border-color var(--transition), box-shadow var(--transition);
     }
     @media (min-width: 768px) {
-      .form-input {
-        font-size: 14.5px;
-      }
+      .form-input { font-size: 14.5px; }
     }
-    .form-input::placeholder {
-      color: var(--color-text-light);
-    }
+    .form-input::placeholder { color: var(--color-text-light); }
     .form-input:focus {
       border-color: var(--color-primary);
       box-shadow: 0 0 0 3px rgba(107, 29, 58, 0.10);
@@ -580,12 +540,9 @@
     }
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+      -webkit-appearance: none; margin: 0;
     }
-    input[type="number"] {
-      -moz-appearance: textfield;
-    }
+    input[type="number"] { -moz-appearance: textfield; }
 
     /* ===== QUIZ STYLES (VIEW 3) ===== */
     .quiz-options-list {
@@ -656,21 +613,137 @@
       margin-top: 4px;
       transition: opacity var(--transition);
     }
-    .option-card.selected .option-check {
-      opacity: 1;
+    .option-card.selected .option-check { opacity: 1; }
+
+    /* ===== THANK YOU VIEW ===== */
+    .thankyou-hero {
+      text-align: center;
+      padding: 10px 0 24px;
+    }
+    .success-pulse-box {
+      width: 72px;
+      height: 72px;
+      background: #E8F5E9;
+      border: 2px solid #A5D6A7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.12);
+      animation: pulseGlow 2.5s infinite;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.25); }
+      70% { box-shadow: 0 0 0 14px rgba(76, 175, 80, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
     }
 
-    /* ===== RESULTS STYLES (VIEW 4) ===== */
+    /* ===== ADMIN DASHBOARD VIEW ===== */
+    .admin-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 640px) {
+      .admin-kpi-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+    }
+    .admin-kpi-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px 12px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+    .admin-kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .admin-kpi-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--color-primary);
+      letter-spacing: -0.02em;
+    }
+    .admin-kpi-sub {
+      font-size: 11px;
+      color: var(--color-text-light);
+      margin-top: 2px;
+    }
+
+    .admin-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 640px) {
+      .admin-toolbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .admin-search-input {
+      height: 40px;
+      padding: 0 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      width: 100%;
+      max-width: 320px;
+      outline: none;
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+    .admin-search-input:focus {
+      border-color: var(--color-primary);
+    }
+    .admin-filter-select {
+      height: 40px;
+      padding: 0 12px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      background: var(--color-surface);
+      color: var(--color-text);
+      outline: none;
+      cursor: pointer;
+    }
+    .password-input-group {
+      position: relative;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .password-toggle-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== RESULTS DIAGNOSTIC (MODAL & VIEW) ===== */
     .result-hero-card {
       border-left: 5px solid var(--color-primary);
       padding: 22px 20px;
       margin-bottom: 14px;
     }
     @media (min-width: 768px) {
-      .result-hero-card {
-        padding: 26px 24px;
-        margin-bottom: 18px;
-      }
+      .result-hero-card { padding: 26px 24px; margin-bottom: 18px; }
     }
     .chart-row {
       display: flex;
@@ -712,9 +785,7 @@
       border-radius: 99px;
       transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .chart-fill.dominant {
-      background: var(--color-primary);
-    }
+    .chart-fill.dominant { background: var(--color-primary); }
 
     .result-potentials-grid {
       display: grid;
@@ -722,9 +793,7 @@
       gap: 10px;
     }
     @media (min-width: 540px) {
-      .result-potentials-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .result-potentials-grid { grid-template-columns: 1fr 1fr; }
     }
     .potential-item {
       display: flex;
@@ -768,9 +837,7 @@
       transition: all var(--transition);
       min-height: 34px;
     }
-    .btn-copy-wa:hover {
-      background: rgba(255, 255, 255, 0.22);
-    }
+    .btn-copy-wa:hover { background: rgba(255, 255, 255, 0.22); }
 
     .share-buttons-grid {
       display: grid;
@@ -779,9 +846,7 @@
       margin-bottom: 10px;
     }
     @media (max-width: 360px) {
-      .share-buttons-grid {
-        grid-template-columns: 1fr;
-      }
+      .share-buttons-grid { grid-template-columns: 1fr; }
     }
 
     /* ===== MODALS ===== */
@@ -800,10 +865,7 @@
       pointer-events: none;
       transition: opacity 0.24s ease;
     }
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
     .modal-sheet {
       background: var(--color-surface);
       border-radius: var(--radius-xl) var(--radius-xl) 0 0;
@@ -816,14 +878,9 @@
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 -8px 40px rgba(90, 24, 48, 0.16);
     }
-    .modal-overlay.open .modal-sheet {
-      transform: translateY(0);
-    }
+    .modal-overlay.open .modal-sheet { transform: translateY(0); }
     @media (min-width: 640px) {
-      .modal-overlay {
-        align-items: center;
-        padding: 24px;
-      }
+      .modal-overlay { align-items: center; padding: 24px; }
       .modal-sheet {
         border-radius: var(--radius-xl);
         max-height: 85vh;
@@ -831,12 +888,11 @@
         transform: translateY(20px) scale(0.97);
         box-shadow: 0 20px 60px rgba(90, 24, 48, 0.22);
       }
-      .modal-overlay.open .modal-sheet {
-        transform: translateY(0) scale(1);
-      }
-      .modal-handle {
-        display: none;
-      }
+      .modal-overlay.open .modal-sheet { transform: translateY(0) scale(1); }
+      .modal-handle { display: none; }
+    }
+    .modal-sheet-wide {
+      max-width: 720px;
     }
     .modal-handle {
       width: 40px;
@@ -865,10 +921,7 @@
       transition: all var(--transition);
       flex-shrink: 0;
     }
-    .modal-close-btn:hover {
-      background: var(--color-border);
-      color: var(--color-text);
-    }
+    .modal-close-btn:hover { background: var(--color-border); color: var(--color-text); }
 
     /* ===== ADMIN TABLE ===== */
     .admin-table-container {
@@ -880,7 +933,7 @@
     .admin-table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 520px;
+      min-width: 580px;
     }
     .admin-table th {
       background: var(--color-bg);
@@ -895,24 +948,41 @@
       white-space: nowrap;
     }
     .admin-table td {
-      padding: 11px 12px;
+      padding: 12px 12px;
       font-size: 12.5px;
       border-bottom: 1px solid var(--color-border-subtle);
+      vertical-align: middle;
+    }
+    .btn-action-view {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-border);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--transition);
+    }
+    .btn-action-view:hover {
+      background: var(--color-primary);
+      color: #fff;
     }
     .btn-delete-row {
       background: #FEF2F2;
       color: #DC2626;
       border: 1px solid #FECACA;
       border-radius: 6px;
-      padding: 4px 9px;
-      font-size: 11.5px;
+      padding: 5px 9px;
+      font-size: 12px;
       cursor: pointer;
       font-weight: 600;
       transition: all var(--transition);
     }
-    .btn-delete-row:hover {
-      background: #FEE2E2;
-    }
+    .btn-delete-row:hover { background: #FEE2E2; }
 
     /* ===== TOAST ===== */
     #toast-container {
@@ -952,26 +1022,16 @@
     }
 
     /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #DDD3D7;
-      border-radius: 99px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #C4A6B0;
-    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #DDD3D7; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #C4A6B0; }
   </style>
 </head>
 <body>
 <div id="toast-container"></div>
 
-<!-- MODAL: Kebijakan Privasi -->
+<!-- ===================== MODAL 1: KEBIJAKAN PRIVASI ===================== -->
 <div class="modal-overlay" id="modal-privacy">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -985,7 +1045,7 @@
       Algonova berkomitmen menjaga privasi data peserta assessment. Data yang dikumpulkan (nama, usia, sekolah, nomor WhatsApp) hanya digunakan untuk keperluan komunikasi terkait program Algonova dan tidak akan dibagikan kepada pihak ketiga tanpa persetujuan.
     </p>
     <p style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;margin-bottom:12px;">
-      Data disimpan secara lokal di perangkat Anda (localStorage) dan dapat dihapus kapan saja. Algonova tidak menyimpan data peserta di server eksternal melalui aplikasi assessment ini.
+      Data tersimpan secara aman di database assessment Algonova untuk keperluan evaluasi workshop dan tindak lanjut program belajar anak.
     </p>
     <p style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;">
       Dengan melanjutkan assessment, Anda menyetujui penggunaan data sesuai kebijakan ini. Untuk pertanyaan lebih lanjut, hubungi kami melalui WhatsApp di <strong style="color:var(--color-primary)">+62 812-6988-5255</strong>.
@@ -994,34 +1054,62 @@
   </div>
 </div>
 
-<!-- MODAL: Admin Portal -->
-<div class="modal-overlay" id="modal-admin">
-  <div class="modal-sheet">
+<!-- ===================== MODAL 2: ADMIN AUTHENTICATION (PASSWORD) ===================== -->
+<div class="modal-overlay" id="modal-admin-auth">
+  <div class="modal-sheet" style="max-width:440px;">
     <div class="modal-handle"></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-      <div class="modal-title">Admin Portal</div>
-      <button class="modal-close-btn" onclick="closeModal('modal-admin')" aria-label="Tutup">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:32px;height:32px;background:var(--color-primary-light);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="modal-title">Admin Portal</div>
+      </div>
+      <button class="modal-close-btn" onclick="closeModal('modal-admin-auth')" aria-label="Tutup">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-    <p style="font-size:12.5px;color:var(--color-text-muted);margin-bottom:16px;">Riwayat peserta yang tersimpan di perangkat ini.</p>
-    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
-      <button class="btn btn-outline btn-sm" onclick="exportAdminCSV()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Export CSV
-      </button>
-      <button class="btn btn-sm" style="background:#FEF2F2;color:#DC2626;border:1.5px solid #FECACA;border-radius:var(--radius-sm);" onclick="clearAllAdmin()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-        Hapus Semua
+    <p style="font-size:13px;color:var(--color-text-muted);margin-bottom:18px;line-height:1.5;">Masukkan password admin untuk mengakses riwayat peserta dan hasil assessment lengkap.</p>
+
+    <div class="form-group" style="margin-bottom:6px;">
+      <label class="form-label" for="admin-pass-input">Password Admin</label>
+      <div class="password-input-group">
+        <input type="password" id="admin-pass-input" class="form-input" placeholder="Masukkan password admin" onkeydown="if(event.key==='Enter') submitAdminLogin()" autocomplete="current-password" />
+        <button type="button" class="password-toggle-btn" onclick="toggleAdminPassVisibility()" aria-label="Toggle password visibility">
+          <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="form-error" id="admin-auth-error"></div>
+    </div>
+
+    <button class="btn btn-primary btn-full" id="btn-admin-login" onclick="submitAdminLogin()" style="margin-top:10px;">
+      Masuk ke Admin Portal
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ===================== MODAL 3: ADMIN PARTICIPANT DETAIL & DOWNLOAD ===================== -->
+<div class="modal-overlay" id="modal-admin-detail">
+  <div class="modal-sheet modal-sheet-wide">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div class="badge-pill" style="margin-bottom:4px;">DETAIL HASIL PESERTA</div>
+        <div class="modal-title" id="admin-detail-title">Hasil Assessment</div>
+      </div>
+      <button class="modal-close-btn" onclick="closeModal('modal-admin-detail')" aria-label="Tutup">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-    <div id="admin-table-wrapper">
-      <!-- Rendered by JS -->
+
+    <div id="admin-detail-content">
+      <!-- Injected by JavaScript -->
     </div>
   </div>
 </div>
 
-<div class="app-wrapper">
+<div class="app-wrapper" id="main-app-wrapper">
 
   <!-- ===================== VIEW 1: LANDING ===================== -->
   <div id="view-landing" class="view active">
@@ -1036,7 +1124,13 @@
           <div class="brand-sub">Learning Assessment</div>
         </div>
       </div>
-      <div class="badge-et">ET</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="badge-et">ET</div>
+        <button class="btn btn-sm btn-outline-neutral" onclick="openAdminAuthModal()" style="font-size:12px;padding:6px 12px;display:flex;gap:5px;align-items:center;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Admin
+        </button>
+      </div>
     </header>
 
     <div class="container">
@@ -1143,7 +1237,7 @@
           <button style="font-size:12px;color:var(--color-text-muted);font-weight:500;text-decoration:underline;text-underline-offset:2px;" onclick="openModal('modal-privacy')">Kebijakan Privasi</button>
           <span style="font-size:12px;color:var(--color-text-light);">© 2026 Algonova Edu</span>
         </div>
-        <button class="btn btn-sm btn-outline" onclick="openAdminPortal()" style="font-size:12px;padding:6px 14px;">Admin Portal</button>
+        <button class="btn btn-sm btn-outline" onclick="openAdminAuthModal()" style="font-size:12px;padding:6px 14px;">Admin Portal</button>
       </div>
     </div>
   </div><!-- end view-landing -->
@@ -1255,13 +1349,13 @@
       <!-- NEXT BUTTON -->
       <button class="btn btn-primary btn-full" id="btn-quiz-next" disabled onclick="quizNext()" style="font-size:15px;padding:14px;">
         <span id="btn-quiz-next-label">Lanjut</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <svg id="quiz-next-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </div>
   </div><!-- end view-quiz -->
 
-  <!-- ===================== VIEW 4: RESULTS ===================== -->
-  <div id="view-result" class="view">
+  <!-- ===================== VIEW 4: THANK YOU (LAYAR TERIMA KASIH PESERTA) ===================== -->
+  <div id="view-thankyou" class="view">
     <header class="app-header">
       <div class="logo-group">
         <div class="logo-box">
@@ -1273,134 +1367,138 @@
           <div class="brand-sub">Learning Assessment</div>
         </div>
       </div>
-      <button class="btn btn-sm btn-outline" onclick="doShare()" style="font-size:12.5px;padding:7px 14px;display:flex;gap:6px;align-items:center;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Bagikan
-      </button>
+      <div class="badge-et">ET</div>
     </header>
 
-    <div class="container" id="result-content">
-      <!-- TITLE SECTION -->
-      <div style="text-align:center;margin-bottom:22px;">
-        <div style="display:flex;justify-content:center;margin-bottom:12px;">
-          <div class="badge-pill">
-            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-            HASIL MINI INTEREST ASSESSMENT
+    <div class="container">
+      <div class="card" style="text-align:center;padding:32px 24px;margin-bottom:18px;">
+        <!-- Animated Success Badge -->
+        <div class="success-pulse-box">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+
+        <div class="badge-pill" style="margin-bottom:12px;background:#E8F5E9;color:#2E7D32;border-color:#C8E6C9;">
+          ASSESSMENT SELESAI
+        </div>
+
+        <h1 class="section-title" style="margin-bottom:8px;font-size:26px;">Terima Kasih,<br><span id="thankyou-name" style="color:var(--color-primary);">Peserta</span>!</h1>
+        <p class="section-sub" style="max-width:480px;margin:0 auto 20px;">
+          Jawaban Mini Interest Assessment kamu telah berhasil kami terima.
+        </p>
+
+        <!-- Informative Callout -->
+        <div style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:14px 16px;text-align:left;display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <p style="font-size:13px;color:var(--color-text-muted);line-height:1.6;">
+            Data jawabanmu telah tersimpan aman dan akan dianalisis oleh tim Algonova untuk persiapan kegiatan workshop interaktif di sekolahmu.
+          </p>
+        </div>
+
+        <!-- Workshop Perk Reminder -->
+        <div class="highlight-trial-box" style="text-align:left;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            <span style="font-size:12px;font-weight:700;color:var(--color-primary);letter-spacing:0.04em;text-transform:uppercase;">Sampai Jumpa di Algonova Coding Workshop!</span>
           </div>
-        </div>
-        <h1 style="font-size:clamp(20px, 3.5vw, 24px);font-weight:800;color:var(--color-text);letter-spacing:-0.02em;margin-bottom:6px;">Hasil untuk <span id="result-name-heading">—</span></h1>
-        <p style="font-size:13px;color:var(--color-text-muted);" id="result-meta">— • — • —</p>
-      </div>
-
-      <!-- 1. HERO RESULT CARD -->
-      <div id="result-hero-card" class="card result-hero-card">
-        <p style="font-size:11px;font-weight:700;color:var(--color-text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;">KECENDERUNGAN SAAT INI</p>
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
-          <div id="result-icon" style="width:54px;height:54px;background:var(--color-primary-light);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"></div>
-          <div>
-            <h2 id="result-dominant-label" style="font-size:clamp(28px, 5vw, 34px);font-weight:800;color:var(--color-primary);letter-spacing:-0.03em;line-height:1;">—</h2>
-            <div id="result-kecenderungan-pill" style="display:inline-flex;align-items:center;padding:4px 12px;background:var(--color-primary);border-radius:99px;margin-top:6px;">
-              <span style="font-size:11px;font-weight:600;color:#fff;letter-spacing:0.03em;" id="result-pill-label">Kecenderungan Minat: —</span>
-            </div>
-          </div>
-        </div>
-        <p id="result-desc-main" style="font-size:14.5px;color:var(--color-text);font-weight:500;line-height:1.65;margin-bottom:4px;"></p>
-      </div>
-
-      <!-- 2. CHART CARD -->
-      <div class="card" style="margin-bottom:14px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-          <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;">Kecenderungan Minat</h3>
-          <span style="font-size:11.5px;color:var(--color-text-muted);font-weight:600;">Total 100%</span>
-        </div>
-        <p style="font-size:12px;color:var(--color-text-light);margin-bottom:16px;">Total persentase 100% dari 10 indikator jawaban</p>
-        <div id="result-chart" style="display:flex;flex-direction:column;gap:14px;"></div>
-      </div>
-
-      <!-- 3. ARTINYA APA? CARD -->
-      <div class="card" style="margin-bottom:14px;">
-        <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;margin-bottom:10px;">Apa artinya?</h3>
-        <p id="result-subdesc" style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;"></p>
-      </div>
-
-      <!-- 4. POTENSI CARD -->
-      <div class="card" style="margin-bottom:14px;">
-        <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;margin-bottom:14px;">Potensi yang dapat dikembangkan</h3>
-        <div id="result-potentials" class="result-potentials-grid"></div>
-      </div>
-
-      <!-- 5. REKOMENDASI CARD -->
-      <div class="card" style="margin-bottom:14px;background:var(--color-primary-light);border-color:#E0C0CB;">
-        <div style="display:flex;align-items:flex-start;gap:12px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <div>
-            <h3 style="font-size:14px;font-weight:700;color:var(--color-primary);margin-bottom:6px;letter-spacing:-0.01em;">Rekomendasi Eksplorasi</h3>
-            <p id="result-rekomendasi" style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;"></p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6. CTA CARD (BURGUNDY) -->
-      <div style="background:var(--color-primary);border-radius:var(--radius-lg);padding:24px 20px;margin-bottom:14px;box-shadow:var(--shadow-md);">
-        <h3 style="font-size:16.5px;font-weight:800;color:#fff;letter-spacing:-0.01em;margin-bottom:8px;text-transform:uppercase;">Yuk, Eksplorasi Secara Langsung!</h3>
-        <p style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:16px;">Assessment memberikan gambaran awal. Pengalaman langsung membantu menemukan aktivitas yang benar-benar membuatmu tertarik.</p>
-
-        <!-- Inner box -->
-        <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius-md);padding:14px 16px;margin-bottom:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <span style="font-size:12px;font-weight:700;color:#fff;letter-spacing:0.04em;text-transform:uppercase;">Algonova Coding Workshop</span>
-          </div>
-          <p style="font-size:12.5px;color:rgba(255,255,255,0.80);margin-bottom:10px;line-height:1.5;">Workshop langsung di sekolahmu — praktik membuat project nyata selama ±1 jam.</p>
-          <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:10px;display:flex;align-items:center;gap:8px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/></svg>
-            <span style="font-size:11.5px;font-weight:700;color:rgba(255,255,255,0.92);letter-spacing:0.04em;text-transform:uppercase;">Free Exclusive Trial Class di Algonova</span>
-          </div>
+          <p style="font-size:12.5px;color:var(--color-text-muted);line-height:1.55;">
+            Kamu akan praktik langsung membuat project coding nyata selama ±1 jam dan mendapatkan kesempatan mengikuti Free Exclusive Trial Class di Algonova.
+          </p>
         </div>
 
-        <a id="btn-wa-result" href="#" target="_blank" class="btn btn-wa btn-full" style="margin-bottom:14px;font-size:14.5px;padding:14px;text-decoration:none;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Hubungi Algonova via WhatsApp
-        </a>
-
-        <div class="result-admin-row">
-          <span style="font-size:12.5px;color:rgba(255,255,255,0.82);font-weight:500;">Nomor Admin: +62 812-6988-5255</span>
-          <button class="btn-copy-wa" onclick="copyWA()">Salin Nomor WA</button>
-        </div>
-      </div>
-
-      <!-- 7. SIMPAN & BAGIKAN CARD -->
-      <div class="card" style="margin-bottom:14px;">
-        <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;margin-bottom:5px;">Simpan & Bagikan Hasil</h3>
-        <p style="font-size:12.5px;color:var(--color-text-muted);margin-bottom:14px;">Unduh kartu hasil portrait (1080×1350) atau dokumen formal PDF A4</p>
-        <div class="share-buttons-grid">
-          <button class="btn btn-primary" onclick="downloadJPEG()" style="font-size:13.5px;padding:11px 14px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            Download JPEG
-          </button>
-          <button class="btn btn-outline" onclick="downloadPDF()" style="font-size:13.5px;padding:11px 14px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Download PDF
-          </button>
-        </div>
-        <button class="btn btn-outline-neutral btn-full" onclick="doShare()" style="font-size:13.5px;padding:12px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          Bagikan Hasil ke Teman/Keluarga
+        <!-- Buttons -->
+        <button class="btn btn-primary btn-full" onclick="resetAssessment()" style="font-size:15px;padding:14px;margin-bottom:12px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Selesai & Kembali ke Beranda
         </button>
-      </div>
 
-      <!-- 8. RESET + DISCLAIMER -->
-      <button class="btn btn-outline-neutral btn-full" onclick="resetAssessment()" style="margin-bottom:16px;font-size:13.5px;padding:12px;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-        Mulai Ulang Assessment
-      </button>
-
-      <div style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:15px 16px;margin-bottom:24px;">
-        <p style="font-size:11.5px;font-weight:700;color:var(--color-text-muted);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:7px;">Catatan Penting</p>
-        <p style="font-size:12.5px;color:var(--color-text-light);line-height:1.65;">Hasil assessment ini bersifat indikatif dan merupakan gambaran kecenderungan minat berdasarkan jawaban yang diberikan pada saat ini. Hasil ini bukan merupakan diagnosis akademis atau psikologis resmi, dan dapat berubah seiring perkembangan anak. Algonova menyarankan agar hasil ini dijadikan sebagai salah satu referensi untuk eksplorasi, bukan satu-satunya penentu pilihan.</p>
+        <a href="https://wa.me/6281269885255?text=Halo%20Algonova%2C%20saya%20sudah%20menyelesaikan%20Learning%20Assessment." target="_blank" class="btn btn-outline-neutral btn-full" style="font-size:13.5px;padding:12px 18px;text-align:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Ada pertanyaan? Hubungi Algonova via WhatsApp</span>
+        </a>
       </div>
     </div>
-  </div><!-- end view-result -->
+  </div><!-- end view-thankyou -->
+
+  <!-- ===================== VIEW 5: ADMIN DASHBOARD ===================== -->
+  <div id="view-admin" class="view">
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-box">
+          <img class="site-logo-img" src="logo.png" alt="Logo" style="display:none;width:100%;height:100%;object-fit:contain;border-radius:10px;" onerror="this.onerror=null; this.src='logo.jpg';" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';" />
+          <span class="site-logo-fallback">A</span>
+        </div>
+        <div class="logo-text">
+          <div class="brand-name">ALGONOVA</div>
+          <div class="brand-sub">Admin Portal Dashboard</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="btn btn-sm btn-outline-neutral" onclick="goTo('view-landing')">Beranda</button>
+        <button class="btn btn-sm" style="background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;" onclick="adminLogout()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- KPI STATS CARDS -->
+      <div class="admin-kpi-grid">
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label">Total Peserta</div>
+          <div class="admin-kpi-val" id="kpi-total">0</div>
+          <div class="admin-kpi-sub">Orang terdaftar</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label">Minat Math</div>
+          <div class="admin-kpi-val" id="kpi-math">0%</div>
+          <div class="admin-kpi-sub" id="kpi-math-count">0 anak</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label">Minat Coding</div>
+          <div class="admin-kpi-val" id="kpi-coding">0%</div>
+          <div class="admin-kpi-sub" id="kpi-coding-count">0 anak</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label">Minat Design</div>
+          <div class="admin-kpi-val" id="kpi-design">0%</div>
+          <div class="admin-kpi-sub" id="kpi-design-count">0 anak</div>
+        </div>
+      </div>
+
+      <!-- TOOLBAR -->
+      <div class="admin-toolbar">
+        <input type="text" id="admin-search-input" class="admin-search-input" placeholder="Cari nama, sekolah, atau WA..." oninput="filterAdminTable()" />
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <select id="admin-category-filter" class="admin-filter-select" onchange="filterAdminTable()">
+            <option value="ALL">Semua Kategori</option>
+            <option value="MATH">Math</option>
+            <option value="CODING">Coding</option>
+            <option value="DESIGN">Design</option>
+          </select>
+          <button class="btn btn-sm btn-outline" onclick="exportAdminCSV()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+          <button class="btn btn-sm btn-outline-neutral" onclick="loadAdminData()" title="Muat ulang data">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          </button>
+          <button class="btn btn-sm" style="background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;" onclick="clearAllAdmin()">
+            Hapus Semua
+          </button>
+        </div>
+      </div>
+
+      <!-- PARTICIPANTS TABLE -->
+      <div id="admin-table-wrapper">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div><!-- end view-admin -->
 
 </div><!-- end app-wrapper -->
 
@@ -1414,7 +1512,9 @@ const state = {
   peserta: { nama: '', usia: '', sekolah: '', wa: '' },
   answers: new Array(10).fill(null), // 0-3 (A=0,B=1,C=2,D=3)
   currentQ: 0,
-  result: null
+  result: null,
+  adminData: [],
+  selectedParticipant: null
 };
 
 // ---- QUESTIONS ----
@@ -1539,7 +1639,16 @@ const PROFILES = {
 // ---- NAVIGATION ----
 function goTo(viewId) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(viewId).classList.add('active');
+  const target = document.getElementById(viewId);
+  if (target) {
+    target.classList.add('active');
+  }
+  const wrapper = document.getElementById('main-app-wrapper');
+  if (viewId === 'view-admin') {
+    wrapper.classList.add('admin-wide');
+  } else {
+    wrapper.classList.remove('admin-wide');
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1629,8 +1738,8 @@ function renderQuiz() {
   document.getElementById('quiz-q-number').textContent = `Pertanyaan ${q + 1}`;
   document.getElementById('quiz-q-text').textContent = QUESTIONS[q].q;
 
-  // Next button label
-  document.getElementById('btn-quiz-next-label').textContent = q === 9 ? 'Lihat Hasil Assessment' : 'Lanjut';
+  // Next button label: On Question 10, says "Kirim Jawaban"
+  document.getElementById('btn-quiz-next-label').textContent = q === 9 ? 'Kirim Jawaban' : 'Lanjut';
 
   // Options
   const optContainer = document.getElementById('quiz-options');
@@ -1668,12 +1777,15 @@ function quizPrev() {
   }
 }
 
-function quizNext() {
+async function quizNext() {
   if (state.answers[state.currentQ] === null) return;
   if (state.currentQ === 9) {
+    // Selesai 10 pertanyaan! Hitung & kirim jawaban
     calculateResult();
-    renderResult();
-    goTo('view-result');
+    await saveSubmissionData();
+    // Tampilkan layar Terima Kasih untuk peserta
+    document.getElementById('thankyou-name').textContent = state.peserta.nama;
+    goTo('view-thankyou');
   } else {
     state.currentQ++;
     renderQuiz();
@@ -1708,12 +1820,10 @@ function calculateResult() {
   if (scores.DESIGN > scores[dominant]) dominant = 'DESIGN';
 
   state.result = { scores, pct, dominant };
-
-  // Save to localStorage
-  saveToStorage();
 }
 
-function saveToStorage() {
+// ---- SUBMISSION SYNC (Neon DB + LocalStorage fallback) ----
+async function saveSubmissionData() {
   const entry = {
     id: Date.now(),
     tanggal: formatDateID(new Date()),
@@ -1726,111 +1836,31 @@ function saveToStorage() {
     design: state.result.pct.DESIGN,
     dominan: state.result.dominant
   };
-  const data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
-  data.unshift(entry);
-  localStorage.setItem('algonova_data', JSON.stringify(data));
-}
 
-// ---- RENDER RESULT ----
-function renderResult() {
-  const { dominant, pct } = state.result;
-  const profile = PROFILES[dominant];
-  const { nama, usia, sekolah } = state.peserta;
+  // 1. Simpan selalu ke localStorage sebagai cache lokal
+  const localData = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  localData.unshift(entry);
+  localStorage.setItem('algonova_data', JSON.stringify(localData));
 
-  document.getElementById('result-name-heading').textContent = nama;
-  document.getElementById('result-meta').textContent = `${usia} Tahun • ${sekolah} • ${formatDateID(new Date())}`;
-
-  // Hero
-  document.getElementById('result-icon').innerHTML = profile.icon;
-  document.getElementById('result-dominant-label').textContent = dominant;
-  document.getElementById('result-pill-label').textContent = `Kecenderungan Minat: ${dominant}`;
-  document.getElementById('result-desc-main').textContent = profile.descMain;
-
-  // Chart
-  const chartEl = document.getElementById('result-chart');
-  chartEl.innerHTML = '';
-  const bars = [
-    { label: 'Math', key: 'MATH', val: pct.MATH },
-    { label: 'Coding', key: 'CODING', val: pct.CODING },
-    { label: 'Design', key: 'DESIGN', val: pct.DESIGN }
-  ];
-  bars.forEach(b => {
-    const isDom = b.key === dominant;
-    chartEl.innerHTML += `
-      <div class="chart-row">
-        <div class="chart-label-row">
-          <span class="chart-label ${isDom ? 'dominant' : ''}">${b.label}</span>
-          <span class="chart-val ${isDom ? 'dominant' : ''}">${b.val}%</span>
-        </div>
-        <div class="chart-track">
-          <div class="chart-fill ${isDom ? 'dominant' : ''}" style="width:${b.val}%;"></div>
-        </div>
-      </div>
-    `;
-  });
-
-  // Subdesc
-  document.getElementById('result-subdesc').textContent = profile.subdesc;
-
-  // Potentials
-  const potEl = document.getElementById('result-potentials');
-  potEl.innerHTML = '';
-  profile.potentials.forEach(p => {
-    potEl.innerHTML += `
-      <div class="potential-item">
-        <div class="potential-dot"></div>
-        <span class="potential-text">${p}</span>
-      </div>
-    `;
-  });
-
-  // Rekomendasi
-  document.getElementById('result-rekomendasi').textContent = profile.rekomendasi;
-
-  // WA Button
-  const waText = encodeURIComponent(
-    `Halo Algonova! Saya ${nama} (${usia} tahun, ${sekolah}) baru saja menyelesaikan Mini Interest Assessment.\n\nHasil Kecenderungan Minat: ${dominant}\n- Math: ${pct.MATH}%\n- Coding: ${pct.CODING}%\n- Design: ${pct.DESIGN}%\n\nSaya ingin mengetahui lebih lanjut tentang program Algonova.`
-  );
-  document.getElementById('btn-wa-result').href = `https://wa.me/6281269885255?text=${waText}`;
+  // 2. Kirim ke backend Express / Neon DB
+  try {
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry)
+    });
+    if (!res.ok) {
+      console.warn('Backend sync returned status:', res.status);
+    }
+  } catch (err) {
+    console.warn('API /api/submit offline/unreachable, tersimpan di localStorage:', err);
+  }
 }
 
 // ---- UTILITY FUNCTIONS ----
 function formatDateID(date) {
   const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
   return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-}
-
-// ---- SHARE ----
-async function doShare() {
-  const { dominant, pct } = state.result || {};
-  const { nama, usia, sekolah } = state.peserta || {};
-  if (!dominant) {
-    showToast('Selesaikan assessment terlebih dahulu.');
-    return;
-  }
-  const text = `Hasil Mini Interest Assessment Algonova\n\nNama: ${nama}\nUsia: ${usia} Tahun | Sekolah: ${sekolah}\n\nKecenderungan Minat: ${dominant}\nMath ${pct.MATH}% · Coding ${pct.CODING}% · Design ${pct.DESIGN}%\n\nAlgonova Learning Assessment — algonova.id`;
-  if (navigator.share) {
-    try {
-      await navigator.share({ title: 'Hasil Assessment Algonova', text });
-    } catch(e) {}
-  } else {
-    try {
-      await navigator.clipboard.writeText(text);
-      showToast('Rangkuman hasil berhasil disalin ke clipboard!');
-    } catch(e) {
-      showToast('Gagal menyalin teks.');
-    }
-  }
-}
-
-// ---- COPY WA ----
-async function copyWA() {
-  try {
-    await navigator.clipboard.writeText('+6281269885255');
-    showToast('Nomor WhatsApp berhasil disalin!');
-  } catch(e) {
-    showToast('Gagal menyalin. Salin manual: +62 812-6988-5255');
-  }
 }
 
 // ---- RESET ----
@@ -1858,7 +1888,7 @@ function showToast(msg) {
   setTimeout(() => toast.remove(), 2800);
 }
 
-// ---- MODAL ----
+// ---- MODAL CONTROLLERS ----
 function openModal(id) {
   document.getElementById(id).classList.add('open');
 }
@@ -1866,45 +1896,198 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 
-// Close modal on overlay click
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) closeModal(overlay.id);
   });
 });
 
-// ---- ADMIN PORTAL ----
-function openAdminPortal() {
-  renderAdminTable();
-  openModal('modal-admin');
+/* ===================================================================
+   ADMIN PORTAL AUTHENTICATION & DASHBOARD
+=================================================================== */
+function openAdminAuthModal() {
+  const token = sessionStorage.getItem('algonova_admin_token');
+  if (token === 'abingdanadiks123') {
+    // Sudah login di sesi ini, langsung masuk ke dashboard
+    goToAdminDashboard();
+    return;
+  }
+  document.getElementById('admin-pass-input').value = '';
+  document.getElementById('admin-auth-error').textContent = '';
+  openModal('modal-admin-auth');
+  setTimeout(() => document.getElementById('admin-pass-input').focus(), 150);
 }
 
-function renderAdminTable() {
-  const data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
-  const wrapper = document.getElementById('admin-table-wrapper');
+function toggleAdminPassVisibility() {
+  const input = document.getElementById('admin-pass-input');
+  const isPass = input.type === 'password';
+  input.type = isPass ? 'text' : 'password';
+}
 
-  if (data.length === 0) {
-    wrapper.innerHTML = `<div style="text-align:center;padding:32px 0;color:var(--color-text-muted);font-size:13.5px;">Belum ada data peserta.</div>`;
+async function submitAdminLogin() {
+  const pass = document.getElementById('admin-pass-input').value.trim();
+  const errEl = document.getElementById('admin-auth-error');
+
+  if (!pass) {
+    errEl.textContent = 'Masukkan password admin.';
     return;
   }
 
-  let rows = data.map((d) => `
-    <tr>
-      <td>
-        <div style="font-weight:600;color:var(--color-text);">${d.nama}</div>
-        <div style="font-size:11.5px;color:var(--color-text-light);">${d.wa}</div>
-      </td>
-      <td style="text-align:center;color:var(--color-text-muted);white-space:nowrap;">${d.usia} thn</td>
-      <td style="color:var(--color-text-muted);">${d.sekolah}</td>
-      <td style="text-align:center;">
-        <span class="badge-pill" style="font-size:10.5px;padding:3px 8px;">${d.dominan}</span>
-      </td>
-      <td style="font-size:11.5px;color:var(--color-text-muted);white-space:nowrap;">${d.tanggal}</td>
-      <td style="text-align:center;">
-        <button onclick="deleteEntry(${d.id})" class="btn-delete-row">Hapus</button>
-      </td>
-    </tr>
-  `).join('');
+  // Verifikasi ke backend atau fallback lokal
+  let isValid = false;
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pass })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      isValid = true;
+    }
+  } catch (e) {
+    // Fallback verifikasi lokal jika server offline
+    if (pass === 'abingdanadiks123') {
+      isValid = true;
+    }
+  }
+
+  if (isValid || pass === 'abingdanadiks123') {
+    sessionStorage.setItem('algonova_admin_token', pass);
+    closeModal('modal-admin-auth');
+    goToAdminDashboard();
+    showToast('Selamat datang di Admin Portal');
+  } else {
+    errEl.textContent = 'Password salah. Silakan coba lagi.';
+    document.getElementById('admin-pass-input').select();
+  }
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('algonova_admin_token');
+  goTo('view-landing');
+  showToast('Logout berhasil.');
+}
+
+async function goToAdminDashboard() {
+  goTo('view-admin');
+  await loadAdminData();
+}
+
+async function loadAdminData() {
+  const pass = sessionStorage.getItem('algonova_admin_token') || 'abingdanadiks123';
+  let participants = [];
+  let apiSuccess = false;
+
+  try {
+    const res = await fetch('/api/admin/participants', {
+      headers: { 'x-admin-password': pass }
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        participants = json.data;
+        apiSuccess = true;
+      }
+    }
+  } catch (err) {
+    console.warn('Gagal memuat dari API, beralih ke cache lokal:', err);
+  }
+
+  // Jika API offline atau gagal terhubung, gunakan localStorage
+  if (!apiSuccess) {
+    participants = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  }
+
+  state.adminData = participants;
+  updateAdminKPIs(participants);
+  renderAdminTableFromData(participants);
+}
+
+function updateAdminKPIs(data) {
+  const total = data.length;
+  document.getElementById('kpi-total').textContent = total;
+
+  if (total === 0) {
+    document.getElementById('kpi-math').textContent = '0%';
+    document.getElementById('kpi-math-count').textContent = '0 anak';
+    document.getElementById('kpi-coding').textContent = '0%';
+    document.getElementById('kpi-coding-count').textContent = '0 anak';
+    document.getElementById('kpi-design').textContent = '0%';
+    document.getElementById('kpi-design-count').textContent = '0 anak';
+    return;
+  }
+
+  const mathCount = data.filter(d => (d.dominan || '').toUpperCase() === 'MATH').length;
+  const codingCount = data.filter(d => (d.dominan || '').toUpperCase() === 'CODING').length;
+  const designCount = data.filter(d => (d.dominan || '').toUpperCase() === 'DESIGN').length;
+
+  document.getElementById('kpi-math').textContent = `${Math.round((mathCount / total) * 100)}%`;
+  document.getElementById('kpi-math-count').textContent = `${mathCount} anak`;
+
+  document.getElementById('kpi-coding').textContent = `${Math.round((codingCount / total) * 100)}%`;
+  document.getElementById('kpi-coding-count').textContent = `${codingCount} anak`;
+
+  document.getElementById('kpi-design').textContent = `${Math.round((designCount / total) * 100)}%`;
+  document.getElementById('kpi-design-count').textContent = `${designCount} anak`;
+}
+
+function filterAdminTable() {
+  const query = (document.getElementById('admin-search-input').value || '').toLowerCase();
+  const cat = document.getElementById('admin-category-filter').value;
+
+  let filtered = state.adminData.filter(d => {
+    const matchQuery = !query || 
+      (d.nama && d.nama.toLowerCase().includes(query)) ||
+      (d.sekolah && d.sekolah.toLowerCase().includes(query)) ||
+      (d.wa && d.wa.includes(query));
+    
+    const matchCat = cat === 'ALL' || (d.dominan || '').toUpperCase() === cat;
+    return matchQuery && matchCat;
+  });
+
+  renderAdminTableFromData(filtered);
+}
+
+function renderAdminTableFromData(data) {
+  const wrapper = document.getElementById('admin-table-wrapper');
+
+  if (data.length === 0) {
+    wrapper.innerHTML = `<div style="text-align:center;padding:48px 0;color:var(--color-text-muted);font-size:14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);">Belum ada data peserta yang tersimpan atau cocok dengan pencarian.</div>`;
+    return;
+  }
+
+  let rows = data.map((d) => {
+    const waClean = (d.wa || '').replace(/[^0-9]/g, '');
+    const waLink = waClean.startsWith('0') ? '62' + waClean.slice(1) : waClean;
+
+    return `
+      <tr>
+        <td>
+          <div style="font-weight:700;color:var(--color-text);font-size:13.5px;">${d.nama}</div>
+          <a href="https://wa.me/${waLink}" target="_blank" style="font-size:11.5px;color:var(--color-wa);display:inline-flex;align-items:center;gap:4px;font-weight:600;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            ${d.wa}
+          </a>
+        </td>
+        <td style="text-align:center;color:var(--color-text-muted);white-space:nowrap;font-weight:500;">${d.usia} thn</td>
+        <td style="color:var(--color-text);font-size:12.5px;">${d.sekolah}</td>
+        <td style="text-align:center;">
+          <span class="badge-pill" style="font-size:10.5px;padding:3px 9px;">${d.dominan}</span>
+        </td>
+        <td style="font-size:11.5px;color:var(--color-text-muted);white-space:nowrap;">${d.tanggal}</td>
+        <td style="text-align:center;white-space:nowrap;">
+          <button class="btn-action-view" onclick="openParticipantDetail(${d.id})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Detail & Cetak
+          </button>
+          <button onclick="deleteParticipantEntry(${d.id})" class="btn-delete-row" style="margin-left:4px;" title="Hapus">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
 
   wrapper.innerHTML = `
     <div class="admin-table-container">
@@ -1922,28 +2105,184 @@ function renderAdminTable() {
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p style="font-size:11.5px;color:var(--color-text-light);margin-top:12px;text-align:right;">${data.length} peserta tersimpan</p>
+    <p style="font-size:12px;color:var(--color-text-light);margin-top:12px;text-align:right;">${data.length} peserta ditampilkan</p>
   `;
 }
 
-function deleteEntry(id) {
-  let data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
-  data = data.filter(d => d.id !== id);
-  localStorage.setItem('algonova_data', JSON.stringify(data));
-  renderAdminTable();
-  showToast('Data peserta berhasil dihapus.');
+// ---- ADMIN: DETAIL PESERTA & CETAK DOKUMEN ----
+function openParticipantDetail(id) {
+  const p = state.adminData.find(item => String(item.id) === String(id));
+  if (!p) {
+    showToast('Data peserta tidak ditemukan.');
+    return;
+  }
+
+  state.selectedParticipant = p;
+
+  const dominant = (p.dominan || 'MATH').toUpperCase();
+  const profile = PROFILES[dominant] || PROFILES.MATH;
+
+  document.getElementById('admin-detail-title').textContent = `Hasil untuk ${p.nama}`;
+
+  const detailContent = document.getElementById('admin-detail-content');
+  detailContent.innerHTML = `
+    <!-- META INFO -->
+    <div style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <div>
+        <span style="font-weight:700;color:var(--color-text);">${p.nama}</span>
+        <span style="color:var(--color-text-muted);font-size:12.5px;"> • ${p.usia} Tahun • ${p.sekolah}</span>
+      </div>
+      <span style="font-size:12px;color:var(--color-text-light);">${p.tanggal}</span>
+    </div>
+
+    <!-- 1. HERO RESULT CARD -->
+    <div class="card result-hero-card" style="margin-bottom:12px;">
+      <p style="font-size:10.5px;font-weight:700;color:var(--color-text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">KECENDERUNGAN SAAT INI</p>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
+        <div style="width:50px;height:50px;background:var(--color-primary-light);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          ${profile.icon}
+        </div>
+        <div>
+          <h2 style="font-size:28px;font-weight:800;color:var(--color-primary);line-height:1;">${dominant}</h2>
+          <div style="display:inline-flex;align-items:center;padding:3px 10px;background:var(--color-primary);border-radius:99px;margin-top:5px;">
+            <span style="font-size:11px;font-weight:600;color:#fff;">Kecenderungan Minat: ${dominant}</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13.5px;color:var(--color-text);font-weight:500;line-height:1.6;">${profile.descMain}</p>
+    </div>
+
+    <!-- 2. CHART CARD -->
+    <div class="card" style="margin-bottom:12px;padding:18px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <h3 style="font-size:14px;font-weight:700;color:var(--color-text);">Kecenderungan Minat</h3>
+        <span style="font-size:11px;color:var(--color-text-muted);font-weight:600;">Total 100%</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="chart-row">
+          <div class="chart-label-row">
+            <span class="chart-label ${dominant === 'MATH' ? 'dominant' : ''}">Math</span>
+            <span class="chart-val ${dominant === 'MATH' ? 'dominant' : ''}">${p.math}%</span>
+          </div>
+          <div class="chart-track"><div class="chart-fill ${dominant === 'MATH' ? 'dominant' : ''}" style="width:${p.math}%;"></div></div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label-row">
+            <span class="chart-label ${dominant === 'CODING' ? 'dominant' : ''}">Coding</span>
+            <span class="chart-val ${dominant === 'CODING' ? 'dominant' : ''}">${p.coding}%</span>
+          </div>
+          <div class="chart-track"><div class="chart-fill ${dominant === 'CODING' ? 'dominant' : ''}" style="width:${p.coding}%;"></div></div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label-row">
+            <span class="chart-label ${dominant === 'DESIGN' ? 'dominant' : ''}">Design</span>
+            <span class="chart-val ${dominant === 'DESIGN' ? 'dominant' : ''}">${p.design}%</span>
+          </div>
+          <div class="chart-track"><div class="chart-fill ${dominant === 'DESIGN' ? 'dominant' : ''}" style="width:${p.design}%;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. POTENSI -->
+    <div class="card" style="margin-bottom:12px;padding:18px;">
+      <h3 style="font-size:14px;font-weight:700;color:var(--color-text);margin-bottom:10px;">Potensi yang dapat dikembangkan</h3>
+      <div class="result-potentials-grid">
+        ${profile.potentials.map(pot => `
+          <div class="potential-item">
+            <div class="potential-dot"></div>
+            <span class="potential-text">${pot}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 4. REKOMENDASI -->
+    <div class="card" style="margin-bottom:16px;padding:18px;background:var(--color-primary-light);border-color:#E0C0CB;">
+      <h3 style="font-size:13.5px;font-weight:700;color:var(--color-primary);margin-bottom:6px;">Rekomendasi Eksplorasi</h3>
+      <p style="font-size:13px;color:var(--color-text-muted);line-height:1.6;">${profile.rekomendasi}</p>
+    </div>
+
+    <!-- DOWNLOAD & ACTION BUTTONS -->
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:16px;">
+      <div style="font-size:12.5px;font-weight:700;color:var(--color-text);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.04em;">Cetak & Bagikan Hasil</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <button class="btn btn-primary" onclick="downloadSelectedParticipantJPEG()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Download JPEG
+        </button>
+        <button class="btn btn-outline" onclick="downloadSelectedParticipantPDF()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Download PDF
+        </button>
+      </div>
+      <a href="${getParticipantWALink(p, dominant)}" target="_blank" class="btn btn-wa btn-full" style="font-size:13.5px;padding:11px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Kirim Hasil via WhatsApp ke Orang Tua
+      </a>
+    </div>
+  `;
+
+  openModal('modal-admin-detail');
 }
 
-function clearAllAdmin() {
-  if (!confirm('Hapus semua data peserta? Tindakan ini tidak dapat dibatalkan.')) return;
+function getParticipantWALink(p, dominant) {
+  const waClean = (p.wa || '').replace(/[^0-9]/g, '');
+  const phone = waClean.startsWith('0') ? '62' + waClean.slice(1) : waClean;
+  const msg = encodeURIComponent(
+    `Halo Ayah/Bunda dari ananda ${p.nama} (${p.usia} tahun, ${p.sekolah}).\n\nBerikut hasil Mini Interest Assessment Algonova:\nKecenderungan Minat Utama: ${dominant}\n- Math: ${p.math}%\n- Coding: ${p.coding}%\n- Design: ${p.design}%\n\nSampai jumpa di kegiatan Algonova Coding Workshop!`
+  );
+  return `https://wa.me/${phone}?text=${msg}`;
+}
+
+async function deleteParticipantEntry(id) {
+  if (!confirm('Hapus data peserta ini? Tindakan ini tidak dapat dibatalkan.')) return;
+
+  const pass = sessionStorage.getItem('algonova_admin_token') || 'abingdanadiks123';
+
+  // 1. Hapus dari Neon DB via API
+  try {
+    await fetch(`/api/admin/participants/${id}`, {
+      method: 'DELETE',
+      headers: { 'x-admin-password': pass }
+    });
+  } catch (err) {
+    console.warn('API delete error, menghapus dari lokal:', err);
+  }
+
+  // 2. Hapus dari localStorage
+  let localData = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  localData = localData.filter(d => String(d.id) !== String(id));
+  localStorage.setItem('algonova_data', JSON.stringify(localData));
+
+  showToast('Data peserta berhasil dihapus.');
+  await loadAdminData();
+}
+
+async function clearAllAdmin() {
+  if (!confirm('PERINGATAN: Hapus SEMUA data peserta? Tindakan ini tidak dapat dibatalkan.')) return;
+
+  const pass = sessionStorage.getItem('algonova_admin_token') || 'abingdanadiks123';
+
+  try {
+    await fetch('/api/admin/clear-all', {
+      method: 'DELETE',
+      headers: { 'x-admin-password': pass }
+    });
+  } catch (err) {
+    console.warn('API clear error:', err);
+  }
+
   localStorage.removeItem('algonova_data');
-  renderAdminTable();
-  showToast('Semua data peserta telah dihapus.');
+  showToast('Semua data peserta telah dibersihkan.');
+  await loadAdminData();
 }
 
 function exportAdminCSV() {
-  const data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
-  if (data.length === 0) { showToast('Tidak ada data untuk diekspor.'); return; }
+  const data = state.adminData.length > 0 ? state.adminData : JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  if (data.length === 0) {
+    showToast('Tidak ada data peserta untuk diekspor.');
+    return;
+  }
   const header = 'Tanggal,Nama,Usia,Sekolah,Nomor WA,Math (%),Coding (%),Design (%),Dominan';
   const rows = data.map(d =>
     `"${d.tanggal}","${d.nama}","${d.usia}","${d.sekolah}","${d.wa}","${d.math}","${d.coding}","${d.design}","${d.dominan}"`
@@ -1958,9 +2297,7 @@ function exportAdminCSV() {
   URL.revokeObjectURL(url);
   showToast('File CSV berhasil diunduh!');
 }
-</script>
 
-<script>
 /* ===================================================================
    LOGO LOADER HELPER (Local file logo.png / logo.jpg in same path)
 =================================================================== */
@@ -1985,13 +2322,32 @@ function loadLogoImage() {
   });
 }
 
+function downloadSelectedParticipantJPEG() {
+  if (state.selectedParticipant) {
+    renderCanvasJPEG(state.selectedParticipant);
+  }
+}
+
+function downloadSelectedParticipantPDF() {
+  if (state.selectedParticipant) {
+    renderDocumentPDF(state.selectedParticipant);
+  }
+}
+
 /* ===================================================================
    DOWNLOAD JPEG — Canvas API (1080x1350)
 =================================================================== */
-async function downloadJPEG() {
-  const { dominant, pct } = state.result;
-  const { nama, usia, sekolah } = state.peserta;
-  const profile = PROFILES[dominant];
+async function renderCanvasJPEG(participant) {
+  const dominant = (participant.dominan || 'MATH').toUpperCase();
+  const pct = {
+    MATH: participant.math,
+    CODING: participant.coding,
+    DESIGN: participant.design
+  };
+  const nama = participant.nama;
+  const usia = participant.usia;
+  const sekolah = participant.sekolah;
+  const profile = PROFILES[dominant] || PROFILES.MATH;
 
   const canvas = document.createElement('canvas');
   canvas.width = 1080;
@@ -2014,7 +2370,7 @@ async function downloadJPEG() {
   ctx.fillStyle = C_PRIMARY;
   ctx.fillRect(0, 0, 1080, 150);
 
-  // ---- LOGO (Image or clean "A") ----
+  // ---- LOGO ----
   const logoImg = await loadLogoImage();
   const logoSize = 64;
   const logoX = 60, logoY = 43;
@@ -2047,7 +2403,7 @@ async function downloadJPEG() {
   ctx.font = '600 15px Plus Jakarta Sans, sans-serif';
   ctx.fillText('LEARNING ASSESSMENT', 140, 103);
 
-  // ---- BADGE ET (top right) ----
+  // ---- BADGE ET ----
   const badgeX = 970, badgeY = 75;
   ctx.fillStyle = 'rgba(255,255,255,0.18)';
   roundRect(ctx, badgeX - 35, badgeY - 18, 70, 36, 18);
@@ -2057,7 +2413,7 @@ async function downloadJPEG() {
   ctx.textAlign = 'center';
   ctx.fillText('ET', badgeX, badgeY + 7);
 
-  // ---- MAIN CONTENT AREA ----
+  // ---- CONTENT AREA ----
   const cardX = 60, cardW = 960;
   let curY = 175;
 
@@ -2068,7 +2424,6 @@ async function downloadJPEG() {
   const heroCardH = Math.max(280, 220 + descLines.length * descLineH + 25);
   const heroCardY = curY;
 
-  // Card background
   ctx.fillStyle = C_WHITE;
   roundRect(ctx, cardX, heroCardY, cardW, heroCardH, 20);
   ctx.fill();
@@ -2077,23 +2432,20 @@ async function downloadJPEG() {
   roundRect(ctx, cardX, heroCardY, cardW, heroCardH, 20);
   ctx.stroke();
 
-  // Left accent bar (radius strictly clamped to 3px to prevent hourglass distortion)
+  // Left accent bar (clamped to 3px)
   ctx.fillStyle = C_PRIMARY;
   roundRect(ctx, cardX, heroCardY + 20, 6, heroCardH - 40, 3);
   ctx.fill();
 
-  // Sub-label: "KECENDERUNGAN SAAT INI"
   ctx.fillStyle = C_MUTED;
   ctx.font = '700 15px Plus Jakarta Sans, sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText('KECENDERUNGAN SAAT INI', cardX + 45, heroCardY + 48);
 
-  // Dominant Label (MATH / CODING / DESIGN)
   ctx.fillStyle = C_PRIMARY;
   ctx.font = '800 64px Plus Jakarta Sans, sans-serif';
   ctx.fillText(dominant, cardX + 45, heroCardY + 118);
 
-  // Pill badge: set font BEFORE measuring text to prevent runaway width!
   ctx.font = '700 17px Plus Jakarta Sans, sans-serif';
   const pillText = `Kecenderungan Minat: ${dominant}`;
   const pillW = ctx.measureText(pillText).width + 34;
@@ -2107,7 +2459,6 @@ async function downloadJPEG() {
   ctx.textAlign = 'left';
   ctx.fillText(pillText, cardX + 62, pillY + 24);
 
-  // Description text
   ctx.fillStyle = C_TEXT;
   ctx.font = '500 19px Plus Jakarta Sans, sans-serif';
   descLines.forEach((line, i) => {
@@ -2159,12 +2510,10 @@ async function downloadJPEG() {
     ctx.textAlign = 'right';
     ctx.fillText(`${b.val}%`, barLeft + barW + 125, by);
 
-    // Track
     ctx.fillStyle = C_BORDER;
     roundRect(ctx, barLeft, by + 8, barW, barH, 6);
     ctx.fill();
 
-    // Fill
     ctx.fillStyle = b.dom ? C_PRIMARY : '#CDB9C0';
     const fw = Math.max((b.val / 100) * barW, barH);
     roundRect(ctx, barLeft, by + 8, fw, barH, 6);
@@ -2207,7 +2556,6 @@ async function downloadJPEG() {
     roundRect(ctx, px, py, potW, 42, 10);
     ctx.stroke();
 
-    // Dot
     ctx.fillStyle = C_PRIMARY;
     ctx.beginPath();
     ctx.arc(px + 18, py + 21, 5, 0, Math.PI * 2);
@@ -2267,7 +2615,7 @@ async function downloadJPEG() {
 
   ctx.fillStyle = 'rgba(255,255,255,0.78)';
   ctx.font = '500 15.5px Plus Jakarta Sans, sans-serif';
-  ctx.fillText(`${nama} • ${usia} Tahun • ${sekolah} • ${formatDateID(new Date())}`, 540, footerY + 108);
+  ctx.fillText(`${nama} • ${usia} Tahun • ${sekolah} • ${participant.tanggal || formatDateID(new Date())}`, 540, footerY + 108);
 
   // ---- DOWNLOAD ----
   const link = document.createElement('a');
@@ -2278,7 +2626,6 @@ async function downloadJPEG() {
 }
 
 function drawCanvasFallbackLogo(ctx, x, y, size) {
-  // Just "A" cleanly without black box!
   ctx.fillStyle = '#FFFFFF';
   ctx.font = '800 48px Plus Jakarta Sans, sans-serif';
   ctx.textAlign = 'center';
@@ -2287,7 +2634,6 @@ function drawCanvasFallbackLogo(ctx, x, y, size) {
   ctx.textBaseline = 'alphabetic';
 }
 
-// ---- CANVAS HELPERS ----
 function roundRect(ctx, x, y, w, h, r) {
   if (w <= 0 || h <= 0) return;
   const maxR = Math.min(Math.abs(w) / 2, Math.abs(h) / 2);
@@ -2303,10 +2649,6 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.lineTo(x, y + radius);
   ctx.quadraticCurveTo(x, y, x + radius, y);
   ctx.closePath();
-}
-
-function roundedPill(ctx, x, y, w, h, r) {
-  roundRect(ctx, x, y, w, h, r || (h / 2));
 }
 
 function wrapText(ctx, text, maxWidth) {
@@ -2325,21 +2667,26 @@ function wrapText(ctx, text, maxWidth) {
   if (current) lines.push(current);
   return lines;
 }
-</script>
 
-<script>
 /* ===================================================================
    DOWNLOAD PDF (A4) — jsPDF
 =================================================================== */
-async function downloadPDF() {
+async function renderDocumentPDF(participant) {
   if (!window.jspdf) {
     showToast('Library PDF sedang dimuat, coba lagi sesaat.');
     return;
   }
   const { jsPDF } = window.jspdf;
-  const { dominant, pct } = state.result;
-  const { nama, usia, sekolah } = state.peserta;
-  const profile = PROFILES[dominant];
+  const dominant = (participant.dominan || 'MATH').toUpperCase();
+  const pct = {
+    MATH: participant.math,
+    CODING: participant.coding,
+    DESIGN: participant.design
+  };
+  const nama = participant.nama;
+  const usia = participant.usia;
+  const sekolah = participant.sekolah;
+  const profile = PROFILES[dominant] || PROFILES.MATH;
 
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const W = 210, H = 297;
@@ -2350,7 +2697,7 @@ async function downloadPDF() {
   doc.setFillColor(107, 29, 58);
   doc.rect(0, 0, W, 36, 'F');
 
-  // Logo: Load user image if present in the same directory, else fallback to just white 'A'
+  // Logo: Load user image if present, else clean white 'A'
   const logoImg = await loadLogoImage();
   let logoDrawn = false;
   if (logoImg) {
@@ -2373,7 +2720,6 @@ async function downloadPDF() {
   }
 
   if (!logoDrawn) {
-    // Just "A" cleanly without black box!
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(22);
     doc.setFont('helvetica', 'bold');
@@ -2396,11 +2742,11 @@ async function downloadPDF() {
   doc.setTextColor(255, 255, 255);
   doc.text('ET', W - margin - 5, 21, { align: 'right' });
 
-  // Date top right
+  // Date
   doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(200, 170, 180);
-  doc.text(formatDateID(new Date()), W - margin, 29, { align: 'right' });
+  doc.text(participant.tanggal || formatDateID(new Date()), W - margin, 29, { align: 'right' });
 
   let y = 46;
 
@@ -2422,14 +2768,13 @@ async function downloadPDF() {
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(110, 93, 99);
-  doc.text(`${usia} Tahun  •  ${sekolah}  •  ${formatDateID(new Date())}`, margin + col / 2, y, { align: 'center' });
+  doc.text(`${usia} Tahun  •  ${sekolah}  •  ${participant.tanggal || formatDateID(new Date())}`, margin + col / 2, y, { align: 'center' });
   y += 10;
 
   // ---- DOMINANT RESULT CARD ----
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(232, 197, 208);
   doc.roundedRect(margin, y, col, 44, 4, 4, 'FD');
-  // Left accent bar
   doc.setFillColor(107, 29, 58);
   doc.rect(margin, y, 4, 44, 'F');
 
@@ -2443,7 +2788,6 @@ async function downloadPDF() {
   doc.setTextColor(107, 29, 58);
   doc.text(dominant, margin + 10, y + 24);
 
-  // Pill
   const pillLabel = `Kecenderungan Minat: ${dominant}`;
   const pillW2 = doc.getTextWidth(pillLabel) + 12;
   doc.setFillColor(107, 29, 58);
@@ -2491,10 +2835,8 @@ async function downloadPDF() {
     doc.text(b.label, barLeft2, by2 + 4);
     doc.setTextColor(b.dom ? 107 : 110, b.dom ? 29 : 110, b.dom ? 58 : 99);
     doc.text(`${b.val}%`, barLeft2 + barW2 + 12, by2 + 4);
-    // Track
     doc.setFillColor(235, 228, 231);
     doc.roundedRect(barLeft2 + 22, by2, barW2, barH2, 2, 2, 'F');
-    // Fill
     doc.setFillColor(b.dom ? 107 : 196, b.dom ? 29 : 166, b.dom ? 58 : 176);
     doc.roundedRect(barLeft2 + 22, by2, Math.max((b.val / 100) * barW2, 3), barH2, 2, 2, 'F');
   });
