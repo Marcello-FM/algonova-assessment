@@ -1,0 +1,2582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Algonova Learning Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    /* ===== CSS CUSTOM PROPERTIES ===== */
+    :root {
+      --color-bg: #FAF8F9;
+      --color-surface: #FFFFFF;
+      --color-border: #EAE2E6;
+      --color-border-subtle: #F3ECF0;
+      --color-primary: #6B1D3A;
+      --color-primary-hover: #85264A;
+      --color-primary-light: #FDF2F5;
+      --color-primary-pale: #F5E6EB;
+      --color-primary-border: #E8C5D0;
+      --color-text: #1E1518;
+      --color-text-muted: #6E5D63;
+      --color-text-light: #9B8890;
+      --color-wa: #16A34A;
+      --color-wa-hover: #15803D;
+      --color-info-bg: #FEF9E7;
+      --color-info-border: #F3E0A2;
+      --color-info-text: #7A6510;
+      --shadow-sm: 0 1px 3px rgba(90, 24, 48, 0.04);
+      --shadow-md: 0 4px 16px rgba(90, 24, 48, 0.06);
+      --shadow-lg: 0 8px 32px rgba(90, 24, 48, 0.09);
+      --shadow-card: 0 2px 8px rgba(90, 24, 48, 0.04), 0 1px 2px rgba(90, 24, 48, 0.02);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+    body {
+      font-family: var(--font);
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+    }
+    @media (min-width: 768px) {
+      body {
+        /* Latar belakang desktop yang elegan & nyaman di mata */
+        background: #F4EFF2;
+        background-image: 
+          radial-gradient(at 50% 0%, rgba(253, 242, 245, 0.85) 0px, transparent 65%),
+          radial-gradient(at 0% 100%, rgba(245, 230, 235, 0.45) 0px, transparent 50%),
+          radial-gradient(at 100% 100%, rgba(245, 230, 235, 0.45) 0px, transparent 50%);
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 36px 16px 64px;
+      }
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    button {
+      font-family: var(--font);
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+    input, select, textarea {
+      font-family: var(--font);
+    }
+
+    /* ===== LAYOUT & WRAPPER ===== */
+    .app-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px 36px;
+      width: 100%;
+      background: var(--color-bg);
+    }
+    @media (min-width: 768px) {
+      .app-wrapper {
+        min-height: auto;
+        width: 100%;
+        max-width: 760px;
+        padding: 0 36px 48px;
+        background: var(--color-surface);
+        border-radius: 24px;
+        border: 1px solid rgba(107, 29, 58, 0.08);
+        box-shadow: 
+          0 1px 2px rgba(90, 24, 48, 0.02),
+          0 8px 24px rgba(90, 24, 48, 0.05),
+          0 20px 48px rgba(90, 24, 48, 0.06);
+      }
+    }
+    .container {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* ===== VIEWS ===== */
+    .view {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.22s ease-out;
+    }
+    .view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== APP HEADER ===== */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0 16px;
+      width: 100%;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 20px;
+    }
+    @media (min-width: 768px) {
+      .app-header {
+        padding: 24px 0 20px;
+        margin-bottom: 28px;
+      }
+    }
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-box {
+      width: 42px;
+      height: 42px;
+      background: var(--color-primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.04em;
+      box-shadow: 0 2px 8px rgba(107, 29, 58, 0.25);
+      flex-shrink: 0;
+    }
+    .logo-text .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .logo-text .brand-sub {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .badge-et {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 14px;
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary-border);
+      border-radius: 99px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== TYPOGRAPHY & PILLS ===== */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary-border);
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(23px, 4.5vw, 30px);
+      font-weight: 800;
+      color: var(--color-text);
+      letter-spacing: -0.025em;
+      line-height: 1.25;
+    }
+    .section-sub {
+      font-size: clamp(13.5px, 2vw, 15px);
+      font-weight: 400;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+      transition: border-color var(--transition);
+    }
+    @media (min-width: 768px) {
+      .card {
+        padding: 24px;
+      }
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 20px;
+      border-radius: var(--radius-md);
+      font-size: 14.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      min-height: 48px;
+      user-select: none;
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(107, 29, 58, 0.18);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(107, 29, 58, 0.24);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 4px rgba(107, 29, 58, 0.16);
+    }
+    .btn-primary:disabled {
+      background: #CDB9C0;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+      opacity: 0.85;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+    .btn-outline:hover {
+      background: var(--color-primary-light);
+    }
+    .btn-outline-neutral {
+      background: transparent;
+      color: var(--color-text);
+      border: 1.5px solid var(--color-border);
+    }
+    .btn-outline-neutral:hover {
+      background: var(--color-bg);
+      border-color: #CBB4BC;
+    }
+    .btn-wa {
+      background: var(--color-wa);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(22, 163, 74, 0.18);
+    }
+    .btn-wa:hover {
+      background: var(--color-wa-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.24);
+    }
+    .btn-wa:active {
+      transform: translateY(0);
+    }
+    .btn-full {
+      width: 100%;
+    }
+    .btn-sm {
+      padding: 7px 14px;
+      font-size: 13px;
+      min-height: 36px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ===== LANDING PAGE SPECIFIC ===== */
+    .landing-hero {
+      text-align: center;
+      padding: 6px 0 22px;
+    }
+    @media (min-width: 768px) {
+      .landing-hero {
+        padding: 10px 0 28px;
+      }
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 768px) {
+      .category-grid {
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+    }
+    .category-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px 8px;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      transition: all var(--transition);
+    }
+    @media (min-width: 768px) {
+      .category-card {
+        padding: 20px 14px;
+      }
+      .category-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: #D6BDC6;
+      }
+    }
+    .category-icon-box {
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+    @media (min-width: 768px) {
+      .category-icon-box {
+        width: 46px;
+        height: 46px;
+        margin-bottom: 12px;
+      }
+    }
+    .category-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 3px;
+    }
+    @media (min-width: 768px) {
+      .category-name {
+        font-size: 15px;
+      }
+    }
+    .category-desc {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-weight: 400;
+      line-height: 1.35;
+    }
+    @media (min-width: 768px) {
+      .category-desc {
+        font-size: 12.5px;
+      }
+    }
+
+    .info-box {
+      background: var(--color-info-bg);
+      border: 1px solid var(--color-info-border);
+      border-radius: var(--radius-md);
+      padding: 13px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .info-box svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .info-box-text {
+      font-size: 13px;
+      color: var(--color-info-text);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .highlight-card {
+      border: 1.5px solid var(--color-primary-border);
+      background: linear-gradient(135deg, #FFF5F8 0%, #FFFFFF 100%);
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    @media (min-width: 768px) {
+      .highlight-card {
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+    }
+    .highlight-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .highlight-badge-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--color-primary);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .highlight-badge-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .highlight-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+    @media (min-width: 768px) {
+      .highlight-heading {
+        font-size: 16.5px;
+      }
+    }
+    .highlight-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+    .highlight-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .highlight-list-item svg {
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .highlight-trial-box {
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .landing-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border);
+    }
+    .landing-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== FORM STYLES (VIEW 2) ===== */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 640px) {
+      .form-grid-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 7px;
+      letter-spacing: -0.01em;
+    }
+    .form-input {
+      width: 100%;
+      height: 46px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: 10px;
+      font-size: 16px; /* Mencegah auto-zoom di iOS iPhone */
+      color: var(--color-text);
+      background: var(--color-surface);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    @media (min-width: 768px) {
+      .form-input {
+        font-size: 14.5px;
+      }
+    }
+    .form-input::placeholder {
+      color: var(--color-text-light);
+    }
+    .form-input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(107, 29, 58, 0.10);
+    }
+    .form-input.invalid {
+      border-color: #DC2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+    }
+    .form-error {
+      font-size: 12px;
+      color: #DC2626;
+      margin-top: 5px;
+      min-height: 18px;
+      font-weight: 500;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    /* ===== QUIZ STYLES (VIEW 3) ===== */
+    .quiz-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .option-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-align: left;
+      width: 100%;
+      min-height: 52px;
+      user-select: none;
+    }
+    .option-card:hover {
+      border-color: #CBB4BC;
+      background: #FEFAFB;
+      transform: translateY(-1px);
+    }
+    .option-card.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      box-shadow: 0 2px 8px rgba(107, 29, 58, 0.08);
+    }
+    .option-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all var(--transition);
+    }
+    .option-card.selected .option-badge {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+    }
+    .option-text {
+      flex: 1;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--color-text);
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+    .option-check {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      opacity: 0;
+      margin-top: 4px;
+      transition: opacity var(--transition);
+    }
+    .option-card.selected .option-check {
+      opacity: 1;
+    }
+
+    /* ===== RESULTS STYLES (VIEW 4) ===== */
+    .result-hero-card {
+      border-left: 5px solid var(--color-primary);
+      padding: 22px 20px;
+      margin-bottom: 14px;
+    }
+    @media (min-width: 768px) {
+      .result-hero-card {
+        padding: 26px 24px;
+        margin-bottom: 18px;
+      }
+    }
+    .chart-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chart-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chart-label {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+    .chart-label.dominant {
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .chart-val {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+    .chart-val.dominant {
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .chart-track {
+      height: 9px;
+      background: var(--color-border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .chart-fill {
+      height: 100%;
+      background: #C4A6B0;
+      border-radius: 99px;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .chart-fill.dominant {
+      background: var(--color-primary);
+    }
+
+    .result-potentials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 540px) {
+      .result-potentials-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .potential-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+    }
+    .potential-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--color-primary);
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
+    .potential-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+    }
+
+    .result-admin-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn-copy-wa {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 8px;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all var(--transition);
+      min-height: 34px;
+    }
+    .btn-copy-wa:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .share-buttons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 360px) {
+      .share-buttons-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== MODALS ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(25, 15, 20, 0.52);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.24s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-sheet {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px 20px 32px;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -8px 40px rgba(90, 24, 48, 0.16);
+    }
+    .modal-overlay.open .modal-sheet {
+      transform: translateY(0);
+    }
+    @media (min-width: 640px) {
+      .modal-overlay {
+        align-items: center;
+        padding: 24px;
+      }
+      .modal-sheet {
+        border-radius: var(--radius-xl);
+        max-height: 85vh;
+        padding: 30px 32px;
+        transform: translateY(20px) scale(0.97);
+        box-shadow: 0 20px 60px rgba(90, 24, 48, 0.22);
+      }
+      .modal-overlay.open .modal-sheet {
+        transform: translateY(0) scale(1);
+      }
+      .modal-handle {
+        display: none;
+      }
+    }
+    .modal-handle {
+      width: 40px;
+      height: 4px;
+      background: #DDD3D7;
+      border-radius: 99px;
+      margin: 0 auto 20px;
+    }
+    .modal-title {
+      font-size: 17.5px;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+    }
+    .modal-close-btn {
+      width: 34px;
+      height: 34px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+    .modal-close-btn:hover {
+      background: var(--color-border);
+      color: var(--color-text);
+    }
+
+    /* ===== ADMIN TABLE ===== */
+    .admin-table-container {
+      overflow-x: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+    }
+    .admin-table th {
+      background: var(--color-bg);
+      padding: 10px 12px;
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--color-border);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 11px 12px;
+      font-size: 12.5px;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .btn-delete-row {
+      background: #FEF2F2;
+      color: #DC2626;
+      border: 1px solid #FECACA;
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 11.5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-delete-row:hover {
+      background: #FEE2E2;
+    }
+
+    /* ===== TOAST ===== */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      width: max-content;
+      max-width: 90vw;
+    }
+    .toast {
+      background: #1E1518;
+      color: #fff;
+      padding: 11px 22px;
+      border-radius: 99px;
+      font-size: 13.5px;
+      font-weight: 500;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+      animation: toastIn 0.28s ease, toastOut 0.3s ease 2.4s forwards;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes toastOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(12px); }
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #DDD3D7;
+      border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C4A6B0;
+    }
+  </style>
+</head>
+<body>
+<div id="toast-container"></div>
+
+<!-- MODAL: Kebijakan Privasi -->
+<div class="modal-overlay" id="modal-privacy">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div class="modal-title">Kebijakan Privasi</div>
+      <button class="modal-close-btn" onclick="closeModal('modal-privacy')" aria-label="Tutup">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;margin-bottom:12px;">
+      Algonova berkomitmen menjaga privasi data peserta assessment. Data yang dikumpulkan (nama, usia, sekolah, nomor WhatsApp) hanya digunakan untuk keperluan komunikasi terkait program Algonova dan tidak akan dibagikan kepada pihak ketiga tanpa persetujuan.
+    </p>
+    <p style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;margin-bottom:12px;">
+      Data disimpan secara lokal di perangkat Anda (localStorage) dan dapat dihapus kapan saja. Algonova tidak menyimpan data peserta di server eksternal melalui aplikasi assessment ini.
+    </p>
+    <p style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;">
+      Dengan melanjutkan assessment, Anda menyetujui penggunaan data sesuai kebijakan ini. Untuk pertanyaan lebih lanjut, hubungi kami melalui WhatsApp di <strong style="color:var(--color-primary)">+62 812-6988-5255</strong>.
+    </p>
+    <button class="btn btn-primary btn-full" style="margin-top:22px;" onclick="closeModal('modal-privacy')">Mengerti</button>
+  </div>
+</div>
+
+<!-- MODAL: Admin Portal -->
+<div class="modal-overlay" id="modal-admin">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <div class="modal-title">Admin Portal</div>
+      <button class="modal-close-btn" onclick="closeModal('modal-admin')" aria-label="Tutup">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p style="font-size:12.5px;color:var(--color-text-muted);margin-bottom:16px;">Riwayat peserta yang tersimpan di perangkat ini.</p>
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+      <button class="btn btn-outline btn-sm" onclick="exportAdminCSV()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+      <button class="btn btn-sm" style="background:#FEF2F2;color:#DC2626;border:1.5px solid #FECACA;border-radius:var(--radius-sm);" onclick="clearAllAdmin()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        Hapus Semua
+      </button>
+    </div>
+    <div id="admin-table-wrapper">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <!-- ===================== VIEW 1: LANDING ===================== -->
+  <div id="view-landing" class="view active">
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-box">
+          <img class="site-logo-img" src="logo.png" alt="Logo" style="display:none;width:100%;height:100%;object-fit:contain;border-radius:10px;" onerror="this.onerror=null; this.src='logo.jpg';" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';" />
+          <span class="site-logo-fallback">A</span>
+        </div>
+        <div class="logo-text">
+          <div class="brand-name">ALGONOVA</div>
+          <div class="brand-sub">Learning Assessment</div>
+        </div>
+      </div>
+      <div class="badge-et">ET</div>
+    </header>
+
+    <div class="container">
+      <!-- HERO -->
+      <div class="landing-hero">
+        <div style="display:flex;justify-content:center;margin-bottom:14px;">
+          <div class="badge-pill">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+            MINI INTEREST ASSESSMENT
+          </div>
+        </div>
+        <h1 class="section-title" style="margin-bottom:10px;">Kenali Minat<br>Belajar Anak</h1>
+        <p class="section-sub">Kenali kecenderungan minat belajar hanya dalam 2–3 menit melalui Mini Interest Assessment dari Algonova.</p>
+      </div>
+
+      <!-- 3 CATEGORY CARDS -->
+      <div class="category-grid">
+        <!-- Math -->
+        <div class="category-card">
+          <div class="category-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <div class="category-name">Math</div>
+          <div class="category-desc">Logika & Pola</div>
+        </div>
+        <!-- Coding -->
+        <div class="category-card">
+          <div class="category-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="category-name">Coding</div>
+          <div class="category-desc">Teknologi & Solusi</div>
+        </div>
+        <!-- Design -->
+        <div class="category-card">
+          <div class="category-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M7 16l4-4 3 3 2-2 1 1"/></svg>
+          </div>
+          <div class="category-name">Design</div>
+          <div class="category-desc">Visual & Kreativitas</div>
+        </div>
+      </div>
+
+      <!-- INFO BOX -->
+      <div class="info-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B08C30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <p class="info-box-text">Assessment ini membantu memberikan gambaran awal tentang bidang yang mungkin menarik untuk kamu eksplorasi.</p>
+      </div>
+
+      <!-- HIGHLIGHT CARD -->
+      <div class="highlight-card">
+        <div class="highlight-badge-row">
+          <div class="highlight-badge-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <span class="highlight-badge-label">Ada yang spesial!</span>
+        </div>
+        <p class="highlight-heading">Tim Algonova akan hadir di sekolahmu untuk <span style="color:var(--color-primary);">Algonova Coding Workshop.</span></p>
+
+        <div class="highlight-list">
+          <div class="highlight-list-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Sesuai jadwal sekolah masing-masing</span>
+          </div>
+          <div class="highlight-list-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Di sekolahmu langsung</span>
+          </div>
+          <div class="highlight-list-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>±1 jam per sesi workshop</span>
+          </div>
+        </div>
+
+        <p style="font-size:13px;color:var(--color-text-muted);margin-bottom:14px;line-height:1.55;">Kamu akan praktik dan membuat project secara langsung selama ±1 jam.</p>
+
+        <!-- Sub-card FREE TRIAL -->
+        <div class="highlight-trial-box">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            <span style="font-size:11.5px;font-weight:700;color:var(--color-primary);letter-spacing:0.04em;text-transform:uppercase;">Free Exclusive Trial Class di Algonova</span>
+          </div>
+          <p style="font-size:12.5px;color:var(--color-text-muted);line-height:1.55;">Setelah mengikuti workshop, kamu juga mendapatkan kesempatan mengikuti Free Exclusive Trial Class di Algonova.</p>
+        </div>
+      </div>
+
+      <!-- CTA AREA -->
+      <div style="margin-bottom:12px;">
+        <button class="btn btn-primary btn-full" id="btn-start-landing" style="font-size:15.5px;padding:15px 24px;" onclick="goToProfile()">
+          Mulai Assessment
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <p style="text-align:center;font-size:12px;color:var(--color-text-light);margin-top:8px;">Hanya sekitar 2–3 menit</p>
+      </div>
+
+      <a href="https://wa.me/6281269885255?text=Halo%20Algonova%2C%20saya%20ingin%20bertanya%20tentang%20Learning%20Assessment." target="_blank" class="btn btn-outline-neutral btn-full" style="font-size:13.5px;padding:12px 18px;text-align:center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Ada pertanyaan? Hubungi Algonova via WhatsApp</span>
+      </a>
+
+      <!-- FOOTER -->
+      <div class="landing-footer">
+        <div class="landing-footer-left">
+          <button style="font-size:12px;color:var(--color-text-muted);font-weight:500;text-decoration:underline;text-underline-offset:2px;" onclick="openModal('modal-privacy')">Kebijakan Privasi</button>
+          <span style="font-size:12px;color:var(--color-text-light);">© 2026 Algonova Edu</span>
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="openAdminPortal()" style="font-size:12px;padding:6px 14px;">Admin Portal</button>
+      </div>
+    </div>
+  </div><!-- end view-landing -->
+
+  <!-- ===================== VIEW 2: PROFILE FORM ===================== -->
+  <div id="view-profile" class="view">
+    <header class="app-header">
+      <button class="btn btn-sm btn-outline-neutral" onclick="goTo('view-landing')" style="display:flex;align-items:center;gap:6px;font-size:13px;padding:7px 14px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Kembali
+      </button>
+      <span style="font-size:12px;font-weight:700;color:var(--color-text-muted);letter-spacing:0.04em;">LANGKAH 1 DARI 2</span>
+    </header>
+    <div class="container">
+      <div class="card" style="margin-bottom:18px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+          <div style="width:5px;height:24px;background:var(--color-primary);border-radius:99px;"></div>
+          <h2 style="font-size:18px;font-weight:700;color:var(--color-text);letter-spacing:-0.02em;">Profil Peserta</h2>
+        </div>
+        <p style="font-size:13.5px;color:var(--color-text-muted);margin-bottom:22px;line-height:1.55;padding-left:15px;">Lengkapi informasi singkat sebelum memulai 10 pertanyaan assessment minatmu.</p>
+
+        <div class="form-grid">
+          <!-- Nama Lengkap -->
+          <div class="form-group">
+            <label class="form-label" for="input-nama">Nama Lengkap <span style="color:var(--color-primary);">*</span></label>
+            <input type="text" id="input-nama" class="form-input" placeholder="Contoh: Alfatih Ramadhan" oninput="validateForm()" autocomplete="name" />
+            <div class="form-error" id="err-nama"></div>
+          </div>
+
+          <!-- Responsive 2 Column: Usia & WhatsApp -->
+          <div class="form-grid-2col">
+            <!-- Usia -->
+            <div class="form-group">
+              <label class="form-label" for="input-usia">Usia (Tahun) <span style="color:var(--color-primary);">*</span></label>
+              <input type="number" id="input-usia" class="form-input" placeholder="Contoh: 10" min="2" max="18" oninput="validateForm()" />
+              <div class="form-error" id="err-usia"></div>
+            </div>
+
+            <!-- No WA -->
+            <div class="form-group">
+              <label class="form-label" for="input-wa">Nomor WhatsApp (Ortu/Wali) <span style="color:var(--color-primary);">*</span></label>
+              <input type="tel" id="input-wa" class="form-input" placeholder="Contoh: 08123456789 atau +628123456789" oninput="validateForm()" autocomplete="tel" />
+              <div class="form-error" id="err-wa"></div>
+            </div>
+          </div>
+
+          <!-- Nama Sekolah -->
+          <div class="form-group">
+            <label class="form-label" for="input-sekolah">Nama Sekolah</label>
+            <input type="text" id="input-sekolah" class="form-input" placeholder="Contoh: SD Fransiskus 2" oninput="validateForm()" />
+          </div>
+
+          <!-- PRIVACY NOTE -->
+          <div style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:13px 15px;display:flex;gap:12px;align-items:flex-start;margin-top:4px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <p style="font-size:12.5px;color:var(--color-text-muted);line-height:1.55;">Data kamu terlindungi dan hanya digunakan untuk keperluan assessment. <button type="button" onclick="openModal('modal-privacy')" style="color:var(--color-primary);font-weight:600;font-size:12.5px;text-decoration:underline;text-underline-offset:2px;">Lihat Kebijakan Privasi</button></p>
+          </div>
+
+          <!-- CHECKBOX -->
+          <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;margin-top:4px;">
+            <input type="checkbox" id="input-consent" onchange="validateForm()" style="margin-top:3px;accent-color:var(--color-primary);width:18px;height:18px;flex-shrink:0;cursor:pointer;" />
+            <span style="font-size:13px;color:var(--color-text-muted);line-height:1.55;">Saya menyetujui penggunaan data yang diberikan untuk kebutuhan assessment dan komunikasi Algonova. <span style="color:var(--color-primary);">*</span></span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full" id="btn-submit-profile" disabled onclick="submitProfile()" style="font-size:15px;padding:14px;">
+        Lanjut ke Assessment
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <p style="text-align:center;font-size:12px;color:var(--color-text-light);margin-top:8px;">10 pertanyaan pilihan ganda — sekitar 2–3 menit</p>
+    </div>
+  </div><!-- end view-profile -->
+
+  <!-- ===================== VIEW 3: QUIZ ===================== -->
+  <div id="view-quiz" class="view">
+    <header class="app-header" style="padding-bottom:12px;">
+      <button class="btn btn-sm btn-outline-neutral" id="btn-quiz-prev" onclick="quizPrev()" style="display:flex;align-items:center;gap:6px;font-size:13px;padding:7px 14px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span id="quiz-prev-label">Sebelumnya</span>
+      </button>
+      <div style="text-align:right;">
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-muted);" id="quiz-progress-label">Pertanyaan 1 dari 10</div>
+        <div style="font-size:11.5px;color:var(--color-text-light);" id="quiz-pct-label">10% Selesai</div>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- PROGRESS BAR -->
+      <div style="height:7px;background:var(--color-border);border-radius:99px;margin-bottom:18px;overflow:hidden;">
+        <div id="quiz-progress-bar" style="height:100%;background:linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);border-radius:99px;transition:width 0.35s ease;width:10%;"></div>
+      </div>
+
+      <!-- SUB HEADER -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:500;color:var(--color-text-muted);">Peserta: <span id="quiz-participant-name" style="font-weight:700;color:var(--color-text);"></span></div>
+        <div class="badge-pill" style="font-size:11px;padding:4px 12px;" id="quiz-qnum-badge">Q1 / 10</div>
+      </div>
+
+      <!-- QUESTION CARD -->
+      <div class="card" style="margin-bottom:16px;padding:22px 20px;">
+        <p style="font-size:13px;font-weight:700;color:var(--color-primary);margin-bottom:8px;letter-spacing:0.02em;" id="quiz-q-number">Pertanyaan 1</p>
+        <p style="font-size:clamp(16px, 2.5vw, 18.5px);font-weight:600;color:var(--color-text);line-height:1.55;letter-spacing:-0.01em;" id="quiz-q-text">Memuat pertanyaan...</p>
+      </div>
+
+      <!-- OPTIONS -->
+      <div id="quiz-options" class="quiz-options-list"></div>
+
+      <!-- NEXT BUTTON -->
+      <button class="btn btn-primary btn-full" id="btn-quiz-next" disabled onclick="quizNext()" style="font-size:15px;padding:14px;">
+        <span id="btn-quiz-next-label">Lanjut</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+  </div><!-- end view-quiz -->
+
+  <!-- ===================== VIEW 4: RESULTS ===================== -->
+  <div id="view-result" class="view">
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-box">
+          <img class="site-logo-img" src="logo.png" alt="Logo" style="display:none;width:100%;height:100%;object-fit:contain;border-radius:10px;" onerror="this.onerror=null; this.src='logo.jpg';" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';" />
+          <span class="site-logo-fallback">A</span>
+        </div>
+        <div class="logo-text">
+          <div class="brand-name">ALGONOVA</div>
+          <div class="brand-sub">Learning Assessment</div>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-outline" onclick="doShare()" style="font-size:12.5px;padding:7px 14px;display:flex;gap:6px;align-items:center;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Bagikan
+      </button>
+    </header>
+
+    <div class="container" id="result-content">
+      <!-- TITLE SECTION -->
+      <div style="text-align:center;margin-bottom:22px;">
+        <div style="display:flex;justify-content:center;margin-bottom:12px;">
+          <div class="badge-pill">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+            HASIL MINI INTEREST ASSESSMENT
+          </div>
+        </div>
+        <h1 style="font-size:clamp(20px, 3.5vw, 24px);font-weight:800;color:var(--color-text);letter-spacing:-0.02em;margin-bottom:6px;">Hasil untuk <span id="result-name-heading">—</span></h1>
+        <p style="font-size:13px;color:var(--color-text-muted);" id="result-meta">— • — • —</p>
+      </div>
+
+      <!-- 1. HERO RESULT CARD -->
+      <div id="result-hero-card" class="card result-hero-card">
+        <p style="font-size:11px;font-weight:700;color:var(--color-text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;">KECENDERUNGAN SAAT INI</p>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+          <div id="result-icon" style="width:54px;height:54px;background:var(--color-primary-light);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"></div>
+          <div>
+            <h2 id="result-dominant-label" style="font-size:clamp(28px, 5vw, 34px);font-weight:800;color:var(--color-primary);letter-spacing:-0.03em;line-height:1;">—</h2>
+            <div id="result-kecenderungan-pill" style="display:inline-flex;align-items:center;padding:4px 12px;background:var(--color-primary);border-radius:99px;margin-top:6px;">
+              <span style="font-size:11px;font-weight:600;color:#fff;letter-spacing:0.03em;" id="result-pill-label">Kecenderungan Minat: —</span>
+            </div>
+          </div>
+        </div>
+        <p id="result-desc-main" style="font-size:14.5px;color:var(--color-text);font-weight:500;line-height:1.65;margin-bottom:4px;"></p>
+      </div>
+
+      <!-- 2. CHART CARD -->
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+          <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;">Kecenderungan Minat</h3>
+          <span style="font-size:11.5px;color:var(--color-text-muted);font-weight:600;">Total 100%</span>
+        </div>
+        <p style="font-size:12px;color:var(--color-text-light);margin-bottom:16px;">Total persentase 100% dari 10 indikator jawaban</p>
+        <div id="result-chart" style="display:flex;flex-direction:column;gap:14px;"></div>
+      </div>
+
+      <!-- 3. ARTINYA APA? CARD -->
+      <div class="card" style="margin-bottom:14px;">
+        <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;margin-bottom:10px;">Apa artinya?</h3>
+        <p id="result-subdesc" style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;"></p>
+      </div>
+
+      <!-- 4. POTENSI CARD -->
+      <div class="card" style="margin-bottom:14px;">
+        <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;margin-bottom:14px;">Potensi yang dapat dikembangkan</h3>
+        <div id="result-potentials" class="result-potentials-grid"></div>
+      </div>
+
+      <!-- 5. REKOMENDASI CARD -->
+      <div class="card" style="margin-bottom:14px;background:var(--color-primary-light);border-color:#E0C0CB;">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div>
+            <h3 style="font-size:14px;font-weight:700;color:var(--color-primary);margin-bottom:6px;letter-spacing:-0.01em;">Rekomendasi Eksplorasi</h3>
+            <p id="result-rekomendasi" style="font-size:13.5px;color:var(--color-text-muted);line-height:1.65;"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. CTA CARD (BURGUNDY) -->
+      <div style="background:var(--color-primary);border-radius:var(--radius-lg);padding:24px 20px;margin-bottom:14px;box-shadow:var(--shadow-md);">
+        <h3 style="font-size:16.5px;font-weight:800;color:#fff;letter-spacing:-0.01em;margin-bottom:8px;text-transform:uppercase;">Yuk, Eksplorasi Secara Langsung!</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:16px;">Assessment memberikan gambaran awal. Pengalaman langsung membantu menemukan aktivitas yang benar-benar membuatmu tertarik.</p>
+
+        <!-- Inner box -->
+        <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius-md);padding:14px 16px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span style="font-size:12px;font-weight:700;color:#fff;letter-spacing:0.04em;text-transform:uppercase;">Algonova Coding Workshop</span>
+          </div>
+          <p style="font-size:12.5px;color:rgba(255,255,255,0.80);margin-bottom:10px;line-height:1.5;">Workshop langsung di sekolahmu — praktik membuat project nyata selama ±1 jam.</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:10px;display:flex;align-items:center;gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/></svg>
+            <span style="font-size:11.5px;font-weight:700;color:rgba(255,255,255,0.92);letter-spacing:0.04em;text-transform:uppercase;">Free Exclusive Trial Class di Algonova</span>
+          </div>
+        </div>
+
+        <a id="btn-wa-result" href="#" target="_blank" class="btn btn-wa btn-full" style="margin-bottom:14px;font-size:14.5px;padding:14px;text-decoration:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Hubungi Algonova via WhatsApp
+        </a>
+
+        <div class="result-admin-row">
+          <span style="font-size:12.5px;color:rgba(255,255,255,0.82);font-weight:500;">Nomor Admin: +62 812-6988-5255</span>
+          <button class="btn-copy-wa" onclick="copyWA()">Salin Nomor WA</button>
+        </div>
+      </div>
+
+      <!-- 7. SIMPAN & BAGIKAN CARD -->
+      <div class="card" style="margin-bottom:14px;">
+        <h3 style="font-size:14.5px;font-weight:700;color:var(--color-text);letter-spacing:-0.01em;margin-bottom:5px;">Simpan & Bagikan Hasil</h3>
+        <p style="font-size:12.5px;color:var(--color-text-muted);margin-bottom:14px;">Unduh kartu hasil portrait (1080×1350) atau dokumen formal PDF A4</p>
+        <div class="share-buttons-grid">
+          <button class="btn btn-primary" onclick="downloadJPEG()" style="font-size:13.5px;padding:11px 14px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Download JPEG
+          </button>
+          <button class="btn btn-outline" onclick="downloadPDF()" style="font-size:13.5px;padding:11px 14px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Download PDF
+          </button>
+        </div>
+        <button class="btn btn-outline-neutral btn-full" onclick="doShare()" style="font-size:13.5px;padding:12px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Bagikan Hasil ke Teman/Keluarga
+        </button>
+      </div>
+
+      <!-- 8. RESET + DISCLAIMER -->
+      <button class="btn btn-outline-neutral btn-full" onclick="resetAssessment()" style="margin-bottom:16px;font-size:13.5px;padding:12px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Mulai Ulang Assessment
+      </button>
+
+      <div style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:15px 16px;margin-bottom:24px;">
+        <p style="font-size:11.5px;font-weight:700;color:var(--color-text-muted);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:7px;">Catatan Penting</p>
+        <p style="font-size:12.5px;color:var(--color-text-light);line-height:1.65;">Hasil assessment ini bersifat indikatif dan merupakan gambaran kecenderungan minat berdasarkan jawaban yang diberikan pada saat ini. Hasil ini bukan merupakan diagnosis akademis atau psikologis resmi, dan dapat berubah seiring perkembangan anak. Algonova menyarankan agar hasil ini dijadikan sebagai salah satu referensi untuk eksplorasi, bukan satu-satunya penentu pilihan.</p>
+      </div>
+    </div>
+  </div><!-- end view-result -->
+
+</div><!-- end app-wrapper -->
+
+<script>
+/* ===================================================================
+   ALGONOVA LEARNING ASSESSMENT — Main JS
+=================================================================== */
+
+// ---- STATE ----
+const state = {
+  peserta: { nama: '', usia: '', sekolah: '', wa: '' },
+  answers: new Array(10).fill(null), // 0-3 (A=0,B=1,C=2,D=3)
+  currentQ: 0,
+  result: null
+};
+
+// ---- QUESTIONS ----
+const QUESTIONS = [
+  {
+    q: "Saat punya waktu luang, kegiatan mana yang paling menarik buat kamu?",
+    opts: [
+      "Bermain teka-teki angka atau permainan strategi",
+      "Bermain game atau mengeksplorasi komputer",
+      "Menggambar, mewarnai, atau membuat sesuatu",
+      "Mencoba berbagai aktivitas baru"
+    ]
+  },
+  {
+    q: "Ketika menemukan sebuah tantangan, kamu biasanya paling senang ketika...",
+    opts: [
+      "Berhasil menemukan jawaban yang tepat",
+      "Berhasil membuat sesuatu bekerja",
+      "Berhasil membuat sesuatu yang unik dan menarik",
+      "Bisa mencoba berbagai cara"
+    ]
+  },
+  {
+    q: "Kalau bisa membuat sesuatu sendiri, kamu paling tertarik membuat...",
+    opts: [
+      "Permainan atau tantangan matematika",
+      "Game atau program sederhana",
+      "Gambar, desain, atau animasi",
+      "Berbagai macam proyek untuk dicoba"
+    ]
+  },
+  {
+    q: "Kamu lebih tertarik pada...",
+    opts: [
+      "Angka, pola, dan logika",
+      "Teknologi dan cara kerja sesuatu",
+      "Warna, bentuk, dan kreativitas",
+      "Hal-hal baru yang menarik perhatianmu"
+    ]
+  },
+  {
+    q: "Menurutmu, kelebihan dirimu yang paling menonjol adalah...",
+    opts: [
+      "Logika dan kemampuan berhitung",
+      "Problem solving dan rasa ingin tahu terhadap teknologi",
+      "Kreativitas dan imajinasi",
+      "Kemampuan beradaptasi dan mencoba hal baru"
+    ]
+  },
+  {
+    q: "Aktivitas mana yang paling bikin kamu betah berlama-lama?",
+    opts: [
+      "Menyelesaikan soal atau puzzle yang menantang",
+      "Membuat game atau mencoba coding",
+      "Membuat gambar atau desain",
+      "Mencoba aktivitas yang berbeda-beda"
+    ]
+  },
+  {
+    q: "Jika diberikan sebuah proyek, kamu cenderung memilih untuk...",
+    opts: [
+      "Menghitung, menyusun strategi, dan mencari solusi",
+      "Membuat sistem atau program agar proyek bisa berjalan",
+      "Membuat tampilan proyek menjadi menarik",
+      "Mengeksplorasi berbagai kemungkinan"
+    ]
+  },
+  {
+    q: "Kamu paling merasa puas ketika...",
+    opts: [
+      "Menemukan jawaban dari soal yang sulit",
+      "Berhasil membuat sesuatu berfungsi",
+      "Berhasil menciptakan sesuatu sesuai imajinasimu",
+      "Menemukan hal baru yang sebelumnya belum diketahui"
+    ]
+  },
+  {
+    q: "Jika mengikuti kelas baru, kamu lebih tertarik dengan...",
+    opts: [
+      "Permainan logika dan matematika",
+      "Coding dan membuat game",
+      "Design dan membuat karya visual",
+      "Mencoba semuanya terlebih dahulu"
+    ]
+  },
+  {
+    q: "Dari tiga bidang berikut, mana yang paling ingin kamu coba?",
+    opts: [
+      "Math",
+      "Coding",
+      "Design",
+      "Belum tahu, ingin mencoba semuanya"
+    ]
+  }
+];
+
+// ---- RESULT PROFILES ----
+const PROFILES = {
+  MATH: {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B1D3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+    descMain: "Kamu menunjukkan kecenderungan lebih besar pada aktivitas yang melibatkan angka, pola, logika, strategi, dan pemecahan masalah.",
+    subdesc: "Anak dengan kecenderungan ini biasanya menikmati tantangan yang membutuhkan proses berpikir dan mencari solusi.",
+    potentials: ["Logical Thinking", "Problem Solving", "Mathematical Thinking", "Strategic Thinking"],
+    rekomendasi: "Kamu dapat mencoba aktivitas Math yang dikemas melalui permainan, tantangan, dan problem solving agar kemampuan berpikir logismu semakin berkembang."
+  },
+  CODING: {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B1D3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    descMain: "Kamu menunjukkan kecenderungan kuat pada teknologi, cara kerja sistem, pembuatan game/program, dan penyelesaian masalah secara terstruktur.",
+    subdesc: "Anak dengan kecenderungan ini biasanya senang bereksperimen membuat sesuatu hingga berhasil berfungsi.",
+    potentials: ["Computational Thinking", "Problem Solving", "Algorithmic Logic", "Tech Exploration"],
+    rekomendasi: "Kamu dapat mencoba aktivitas Coding melalui pembuatan game interaktif, animasi terprogram, dan proyek teknologi yang mengasah logika pemrograman."
+  },
+  DESIGN: {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B1D3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M7 16l4-4 3 3 2-2 1 1"/></svg>`,
+    descMain: "Kamu menunjukkan kecenderungan tinggi pada kreativitas visual, kepekaan warna, bentuk, imajinasi, dan penciptaan karya yang unik.",
+    subdesc: "Anak dengan kecenderungan ini biasanya ekspresif dan senang mengubah ide di kepalanya menjadi karya visual yang menarik.",
+    potentials: ["Creative Thinking", "Visual Communication", "Design Sense", "Imagination & Ideation"],
+    rekomendasi: "Kamu dapat mencoba aktivitas Design melalui pembuatan ilustrasi digital, desain karakter, animasi, dan proyek kreatif yang menyalurkan imajinasimu."
+  }
+};
+
+// ---- NAVIGATION ----
+function goTo(viewId) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToProfile() {
+  goTo('view-profile');
+}
+
+// ---- FORM VALIDATION ----
+function validateForm() {
+  const nama = document.getElementById('input-nama').value.trim();
+  const usia = parseInt(document.getElementById('input-usia').value);
+  const wa = document.getElementById('input-wa').value.trim();
+  const consent = document.getElementById('input-consent').checked;
+
+  let valid = true;
+
+  // Nama
+  const errNama = document.getElementById('err-nama');
+  const inputNama = document.getElementById('input-nama');
+  if (!nama) {
+    errNama.textContent = '';
+    inputNama.classList.remove('invalid');
+  }
+
+  // Usia
+  const errUsia = document.getElementById('err-usia');
+  const inputUsia = document.getElementById('input-usia');
+  const usiaVal = document.getElementById('input-usia').value;
+  if (usiaVal !== '' && (isNaN(usia) || usia < 2 || usia > 18)) {
+    errUsia.textContent = 'Usia harus antara 2 sampai 18 tahun.';
+    inputUsia.classList.add('invalid');
+    valid = false;
+  } else {
+    errUsia.textContent = '';
+    inputUsia.classList.remove('invalid');
+  }
+
+  // WA
+  const errWa = document.getElementById('err-wa');
+  const inputWa = document.getElementById('input-wa');
+  const waClean = wa.replace(/[\s\-()]/g, '');
+  const waValid = /^(\+62|62|0)[0-9]{8,13}$/.test(waClean);
+  if (wa !== '' && !waValid) {
+    errWa.textContent = 'Format nomor WhatsApp tidak valid. Contoh: 08123456789 atau +628123456789';
+    inputWa.classList.add('invalid');
+    valid = false;
+  } else {
+    errWa.textContent = '';
+    inputWa.classList.remove('invalid');
+  }
+
+  const allFilled = nama.length > 0 && usiaVal !== '' && !isNaN(usia) && usia >= 2 && usia <= 18 && wa.length > 0 && waValid && consent;
+  document.getElementById('btn-submit-profile').disabled = !allFilled;
+}
+
+function submitProfile() {
+  const nama = document.getElementById('input-nama').value.trim();
+  const usia = document.getElementById('input-usia').value.trim();
+  const sekolah = document.getElementById('input-sekolah').value.trim() || 'Tidak Dicantumkan';
+  const wa = document.getElementById('input-wa').value.trim();
+
+  state.peserta = { nama, usia, sekolah, wa };
+  state.answers = new Array(10).fill(null);
+  state.currentQ = 0;
+
+  renderQuiz();
+  goTo('view-quiz');
+}
+
+// ---- QUIZ LOGIC ----
+function renderQuiz() {
+  const q = state.currentQ;
+  const total = QUESTIONS.length;
+
+  // Header
+  document.getElementById('quiz-progress-label').textContent = `Pertanyaan ${q + 1} dari ${total}`;
+  document.getElementById('quiz-pct-label').textContent = `${(q + 1) * 10}% Selesai`;
+  document.getElementById('quiz-progress-bar').style.width = `${(q + 1) * 10}%`;
+  document.getElementById('quiz-participant-name').textContent = state.peserta.nama;
+  document.getElementById('quiz-qnum-badge').textContent = `Q${q + 1} / 10`;
+
+  // Prev button
+  const prevLabel = document.getElementById('quiz-prev-label');
+  prevLabel.textContent = q === 0 ? 'Data Peserta' : 'Sebelumnya';
+
+  // Question
+  document.getElementById('quiz-q-number').textContent = `Pertanyaan ${q + 1}`;
+  document.getElementById('quiz-q-text').textContent = QUESTIONS[q].q;
+
+  // Next button label
+  document.getElementById('btn-quiz-next-label').textContent = q === 9 ? 'Lihat Hasil Assessment' : 'Lanjut';
+
+  // Options
+  const optContainer = document.getElementById('quiz-options');
+  optContainer.innerHTML = '';
+  const labels = ['A', 'B', 'C', 'D'];
+  QUESTIONS[q].opts.forEach((opt, i) => {
+    const isSelected = state.answers[q] === i;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `option-card${isSelected ? ' selected' : ''}`;
+    btn.onclick = () => selectOption(i);
+    btn.innerHTML = `
+      <div class="option-badge">${labels[i]}</div>
+      <span class="option-text">${opt}</span>
+      <svg class="option-check" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    `;
+    optContainer.appendChild(btn);
+  });
+
+  // Next btn state
+  document.getElementById('btn-quiz-next').disabled = state.answers[q] === null;
+}
+
+function selectOption(idx) {
+  state.answers[state.currentQ] = idx;
+  renderQuiz();
+}
+
+function quizPrev() {
+  if (state.currentQ === 0) {
+    goTo('view-profile');
+  } else {
+    state.currentQ--;
+    renderQuiz();
+  }
+}
+
+function quizNext() {
+  if (state.answers[state.currentQ] === null) return;
+  if (state.currentQ === 9) {
+    calculateResult();
+    renderResult();
+    goTo('view-result');
+  } else {
+    state.currentQ++;
+    renderQuiz();
+  }
+}
+
+// ---- CALCULATE RESULT ----
+function calculateResult() {
+  let scores = { MATH: 0, CODING: 0, DESIGN: 0 };
+  state.answers.forEach(ans => {
+    if (ans === 0) scores.MATH += 1;
+    else if (ans === 1) scores.CODING += 1;
+    else if (ans === 2) scores.DESIGN += 1;
+    else if (ans === 3) {
+      scores.MATH += 1/3;
+      scores.CODING += 1/3;
+      scores.DESIGN += 1/3;
+    }
+  });
+
+  const total = scores.MATH + scores.CODING + scores.DESIGN;
+  const pct = {
+    MATH: Math.round((scores.MATH / total) * 100),
+    CODING: Math.round((scores.CODING / total) * 100),
+    DESIGN: 0
+  };
+  pct.DESIGN = 100 - pct.MATH - pct.CODING;
+
+  // Dominant
+  let dominant = 'MATH';
+  if (scores.CODING > scores[dominant]) dominant = 'CODING';
+  if (scores.DESIGN > scores[dominant]) dominant = 'DESIGN';
+
+  state.result = { scores, pct, dominant };
+
+  // Save to localStorage
+  saveToStorage();
+}
+
+function saveToStorage() {
+  const entry = {
+    id: Date.now(),
+    tanggal: formatDateID(new Date()),
+    nama: state.peserta.nama,
+    usia: state.peserta.usia,
+    sekolah: state.peserta.sekolah,
+    wa: state.peserta.wa,
+    math: state.result.pct.MATH,
+    coding: state.result.pct.CODING,
+    design: state.result.pct.DESIGN,
+    dominan: state.result.dominant
+  };
+  const data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  data.unshift(entry);
+  localStorage.setItem('algonova_data', JSON.stringify(data));
+}
+
+// ---- RENDER RESULT ----
+function renderResult() {
+  const { dominant, pct } = state.result;
+  const profile = PROFILES[dominant];
+  const { nama, usia, sekolah } = state.peserta;
+
+  document.getElementById('result-name-heading').textContent = nama;
+  document.getElementById('result-meta').textContent = `${usia} Tahun • ${sekolah} • ${formatDateID(new Date())}`;
+
+  // Hero
+  document.getElementById('result-icon').innerHTML = profile.icon;
+  document.getElementById('result-dominant-label').textContent = dominant;
+  document.getElementById('result-pill-label').textContent = `Kecenderungan Minat: ${dominant}`;
+  document.getElementById('result-desc-main').textContent = profile.descMain;
+
+  // Chart
+  const chartEl = document.getElementById('result-chart');
+  chartEl.innerHTML = '';
+  const bars = [
+    { label: 'Math', key: 'MATH', val: pct.MATH },
+    { label: 'Coding', key: 'CODING', val: pct.CODING },
+    { label: 'Design', key: 'DESIGN', val: pct.DESIGN }
+  ];
+  bars.forEach(b => {
+    const isDom = b.key === dominant;
+    chartEl.innerHTML += `
+      <div class="chart-row">
+        <div class="chart-label-row">
+          <span class="chart-label ${isDom ? 'dominant' : ''}">${b.label}</span>
+          <span class="chart-val ${isDom ? 'dominant' : ''}">${b.val}%</span>
+        </div>
+        <div class="chart-track">
+          <div class="chart-fill ${isDom ? 'dominant' : ''}" style="width:${b.val}%;"></div>
+        </div>
+      </div>
+    `;
+  });
+
+  // Subdesc
+  document.getElementById('result-subdesc').textContent = profile.subdesc;
+
+  // Potentials
+  const potEl = document.getElementById('result-potentials');
+  potEl.innerHTML = '';
+  profile.potentials.forEach(p => {
+    potEl.innerHTML += `
+      <div class="potential-item">
+        <div class="potential-dot"></div>
+        <span class="potential-text">${p}</span>
+      </div>
+    `;
+  });
+
+  // Rekomendasi
+  document.getElementById('result-rekomendasi').textContent = profile.rekomendasi;
+
+  // WA Button
+  const waText = encodeURIComponent(
+    `Halo Algonova! Saya ${nama} (${usia} tahun, ${sekolah}) baru saja menyelesaikan Mini Interest Assessment.\n\nHasil Kecenderungan Minat: ${dominant}\n- Math: ${pct.MATH}%\n- Coding: ${pct.CODING}%\n- Design: ${pct.DESIGN}%\n\nSaya ingin mengetahui lebih lanjut tentang program Algonova.`
+  );
+  document.getElementById('btn-wa-result').href = `https://wa.me/6281269885255?text=${waText}`;
+}
+
+// ---- UTILITY FUNCTIONS ----
+function formatDateID(date) {
+  const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+// ---- SHARE ----
+async function doShare() {
+  const { dominant, pct } = state.result || {};
+  const { nama, usia, sekolah } = state.peserta || {};
+  if (!dominant) {
+    showToast('Selesaikan assessment terlebih dahulu.');
+    return;
+  }
+  const text = `Hasil Mini Interest Assessment Algonova\n\nNama: ${nama}\nUsia: ${usia} Tahun | Sekolah: ${sekolah}\n\nKecenderungan Minat: ${dominant}\nMath ${pct.MATH}% · Coding ${pct.CODING}% · Design ${pct.DESIGN}%\n\nAlgonova Learning Assessment — algonova.id`;
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'Hasil Assessment Algonova', text });
+    } catch(e) {}
+  } else {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('Rangkuman hasil berhasil disalin ke clipboard!');
+    } catch(e) {
+      showToast('Gagal menyalin teks.');
+    }
+  }
+}
+
+// ---- COPY WA ----
+async function copyWA() {
+  try {
+    await navigator.clipboard.writeText('+6281269885255');
+    showToast('Nomor WhatsApp berhasil disalin!');
+  } catch(e) {
+    showToast('Gagal menyalin. Salin manual: +62 812-6988-5255');
+  }
+}
+
+// ---- RESET ----
+function resetAssessment() {
+  state.peserta = { nama:'', usia:'', sekolah:'', wa:'' };
+  state.answers = new Array(10).fill(null);
+  state.currentQ = 0;
+  state.result = null;
+  document.getElementById('input-nama').value = '';
+  document.getElementById('input-usia').value = '';
+  document.getElementById('input-sekolah').value = '';
+  document.getElementById('input-wa').value = '';
+  document.getElementById('input-consent').checked = false;
+  document.getElementById('btn-submit-profile').disabled = true;
+  goTo('view-landing');
+}
+
+// ---- TOAST ----
+function showToast(msg) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 2800);
+}
+
+// ---- MODAL ----
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal(overlay.id);
+  });
+});
+
+// ---- ADMIN PORTAL ----
+function openAdminPortal() {
+  renderAdminTable();
+  openModal('modal-admin');
+}
+
+function renderAdminTable() {
+  const data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  const wrapper = document.getElementById('admin-table-wrapper');
+
+  if (data.length === 0) {
+    wrapper.innerHTML = `<div style="text-align:center;padding:32px 0;color:var(--color-text-muted);font-size:13.5px;">Belum ada data peserta.</div>`;
+    return;
+  }
+
+  let rows = data.map((d) => `
+    <tr>
+      <td>
+        <div style="font-weight:600;color:var(--color-text);">${d.nama}</div>
+        <div style="font-size:11.5px;color:var(--color-text-light);">${d.wa}</div>
+      </td>
+      <td style="text-align:center;color:var(--color-text-muted);white-space:nowrap;">${d.usia} thn</td>
+      <td style="color:var(--color-text-muted);">${d.sekolah}</td>
+      <td style="text-align:center;">
+        <span class="badge-pill" style="font-size:10.5px;padding:3px 8px;">${d.dominan}</span>
+      </td>
+      <td style="font-size:11.5px;color:var(--color-text-muted);white-space:nowrap;">${d.tanggal}</td>
+      <td style="text-align:center;">
+        <button onclick="deleteEntry(${d.id})" class="btn-delete-row">Hapus</button>
+      </td>
+    </tr>
+  `).join('');
+
+  wrapper.innerHTML = `
+    <div class="admin-table-container">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Peserta</th>
+            <th style="text-align:center;">Usia</th>
+            <th>Sekolah</th>
+            <th style="text-align:center;">Hasil</th>
+            <th>Tanggal</th>
+            <th style="text-align:center;">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <p style="font-size:11.5px;color:var(--color-text-light);margin-top:12px;text-align:right;">${data.length} peserta tersimpan</p>
+  `;
+}
+
+function deleteEntry(id) {
+  let data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  data = data.filter(d => d.id !== id);
+  localStorage.setItem('algonova_data', JSON.stringify(data));
+  renderAdminTable();
+  showToast('Data peserta berhasil dihapus.');
+}
+
+function clearAllAdmin() {
+  if (!confirm('Hapus semua data peserta? Tindakan ini tidak dapat dibatalkan.')) return;
+  localStorage.removeItem('algonova_data');
+  renderAdminTable();
+  showToast('Semua data peserta telah dihapus.');
+}
+
+function exportAdminCSV() {
+  const data = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  if (data.length === 0) { showToast('Tidak ada data untuk diekspor.'); return; }
+  const header = 'Tanggal,Nama,Usia,Sekolah,Nomor WA,Math (%),Coding (%),Design (%),Dominan';
+  const rows = data.map(d =>
+    `"${d.tanggal}","${d.nama}","${d.usia}","${d.sekolah}","${d.wa}","${d.math}","${d.coding}","${d.design}","${d.dominan}"`
+  );
+  const csv = [header, ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `algonova-peserta-${Date.now()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('File CSV berhasil diunduh!');
+}
+</script>
+
+<script>
+/* ===================================================================
+   LOGO LOADER HELPER (Local file logo.png / logo.jpg in same path)
+=================================================================== */
+function loadLogoImage() {
+  return new Promise((resolve) => {
+    const candidates = ['logo.png', 'logo.jpg', 'logo.jpeg', 'logo.webp', 'algonova.png', 'algonova-logo.png'];
+    let idx = 0;
+    function tryNext() {
+      if (idx >= candidates.length) {
+        resolve(null);
+        return;
+      }
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => {
+        idx++;
+        tryNext();
+      };
+      img.src = candidates[idx] + '?v=' + Date.now();
+    }
+    tryNext();
+  });
+}
+
+/* ===================================================================
+   DOWNLOAD JPEG — Canvas API (1080x1350)
+=================================================================== */
+async function downloadJPEG() {
+  const { dominant, pct } = state.result;
+  const { nama, usia, sekolah } = state.peserta;
+  const profile = PROFILES[dominant];
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1350;
+  const ctx = canvas.getContext('2d');
+
+  const C_PRIMARY = '#6B1D3A';
+  const C_PRIMARY_LIGHT = '#FDF2F5';
+  const C_BG = '#FAF8F9';
+  const C_TEXT = '#1E1518';
+  const C_MUTED = '#6E5D63';
+  const C_BORDER = '#EAE2E6';
+  const C_WHITE = '#FFFFFF';
+
+  // ---- BACKGROUND ----
+  ctx.fillStyle = C_BG;
+  ctx.fillRect(0, 0, 1080, 1350);
+
+  // ---- TOP BURGUNDY STRIP ----
+  ctx.fillStyle = C_PRIMARY;
+  ctx.fillRect(0, 0, 1080, 150);
+
+  // ---- LOGO (Image or clean "A") ----
+  const logoImg = await loadLogoImage();
+  const logoSize = 64;
+  const logoX = 60, logoY = 43;
+
+  if (logoImg) {
+    try {
+      const aspect = (logoImg.width && logoImg.height) ? (logoImg.width / logoImg.height) : 1;
+      let dw = logoSize, dh = logoSize;
+      if (aspect > 1) {
+        dh = logoSize / aspect;
+      } else {
+        dw = logoSize * aspect;
+      }
+      const dx = logoX + (logoSize - dw) / 2;
+      const dy = logoY + (logoSize - dh) / 2;
+      ctx.drawImage(logoImg, dx, dy, dw, dh);
+    } catch (e) {
+      drawCanvasFallbackLogo(ctx, logoX, logoY, logoSize);
+    }
+  } else {
+    drawCanvasFallbackLogo(ctx, logoX, logoY, logoSize);
+  }
+
+  // ---- BRAND TEXT ----
+  ctx.textAlign = 'left';
+  ctx.fillStyle = C_WHITE;
+  ctx.font = '800 30px Plus Jakarta Sans, sans-serif';
+  ctx.fillText('ALGONOVA', 140, 77);
+  ctx.fillStyle = 'rgba(255,255,255,0.78)';
+  ctx.font = '600 15px Plus Jakarta Sans, sans-serif';
+  ctx.fillText('LEARNING ASSESSMENT', 140, 103);
+
+  // ---- BADGE ET (top right) ----
+  const badgeX = 970, badgeY = 75;
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  roundRect(ctx, badgeX - 35, badgeY - 18, 70, 36, 18);
+  ctx.fill();
+  ctx.fillStyle = C_WHITE;
+  ctx.font = '700 19px Plus Jakarta Sans, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('ET', badgeX, badgeY + 7);
+
+  // ---- MAIN CONTENT AREA ----
+  const cardX = 60, cardW = 960;
+  let curY = 175;
+
+  // 1. HERO RESULT CARD
+  ctx.font = '500 19px Plus Jakarta Sans, sans-serif';
+  const descLines = wrapText(ctx, profile.descMain, 860);
+  const descLineH = 28;
+  const heroCardH = Math.max(280, 220 + descLines.length * descLineH + 25);
+  const heroCardY = curY;
+
+  // Card background
+  ctx.fillStyle = C_WHITE;
+  roundRect(ctx, cardX, heroCardY, cardW, heroCardH, 20);
+  ctx.fill();
+  ctx.strokeStyle = '#E8C5D0';
+  ctx.lineWidth = 1.5;
+  roundRect(ctx, cardX, heroCardY, cardW, heroCardH, 20);
+  ctx.stroke();
+
+  // Left accent bar (radius strictly clamped to 3px to prevent hourglass distortion)
+  ctx.fillStyle = C_PRIMARY;
+  roundRect(ctx, cardX, heroCardY + 20, 6, heroCardH - 40, 3);
+  ctx.fill();
+
+  // Sub-label: "KECENDERUNGAN SAAT INI"
+  ctx.fillStyle = C_MUTED;
+  ctx.font = '700 15px Plus Jakarta Sans, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('KECENDERUNGAN SAAT INI', cardX + 45, heroCardY + 48);
+
+  // Dominant Label (MATH / CODING / DESIGN)
+  ctx.fillStyle = C_PRIMARY;
+  ctx.font = '800 64px Plus Jakarta Sans, sans-serif';
+  ctx.fillText(dominant, cardX + 45, heroCardY + 118);
+
+  // Pill badge: set font BEFORE measuring text to prevent runaway width!
+  ctx.font = '700 17px Plus Jakarta Sans, sans-serif';
+  const pillText = `Kecenderungan Minat: ${dominant}`;
+  const pillW = ctx.measureText(pillText).width + 34;
+  const pillH = 36;
+  const pillY = heroCardY + 138;
+  ctx.fillStyle = C_PRIMARY;
+  roundRect(ctx, cardX + 45, pillY, pillW, pillH, 18);
+  ctx.fill();
+
+  ctx.fillStyle = C_WHITE;
+  ctx.textAlign = 'left';
+  ctx.fillText(pillText, cardX + 62, pillY + 24);
+
+  // Description text
+  ctx.fillStyle = C_TEXT;
+  ctx.font = '500 19px Plus Jakarta Sans, sans-serif';
+  descLines.forEach((line, i) => {
+    ctx.fillText(line, cardX + 45, heroCardY + 215 + i * descLineH);
+  });
+
+  curY = heroCardY + heroCardH + 18;
+
+  // 2. CHART CARD
+  const chartCardY = curY;
+  const chartCardH = 235;
+
+  ctx.fillStyle = C_WHITE;
+  roundRect(ctx, cardX, chartCardY, cardW, chartCardH, 20);
+  ctx.fill();
+  ctx.strokeStyle = C_BORDER;
+  ctx.lineWidth = 1;
+  roundRect(ctx, cardX, chartCardY, cardW, chartCardH, 20);
+  ctx.stroke();
+
+  ctx.fillStyle = C_TEXT;
+  ctx.font = '700 23px Plus Jakarta Sans, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('Kecenderungan Minat', cardX + 45, chartCardY + 44);
+
+  ctx.fillStyle = C_MUTED;
+  ctx.font = '400 15px Plus Jakarta Sans, sans-serif';
+  ctx.fillText('Total persentase 100% dari 10 indikator jawaban', cardX + 45, chartCardY + 70);
+
+  const bars = [
+    { label: 'Math', val: pct.MATH, dom: dominant === 'MATH' },
+    { label: 'Coding', val: pct.CODING, dom: dominant === 'CODING' },
+    { label: 'Design', val: pct.DESIGN, dom: dominant === 'DESIGN' }
+  ];
+  const barStartY = chartCardY + 102;
+  const barH = 12;
+  const barW = 740;
+  const barLeft = cardX + 45;
+
+  bars.forEach((b, i) => {
+    const by = barStartY + i * 44;
+    ctx.fillStyle = b.dom ? C_PRIMARY : C_TEXT;
+    ctx.font = `${b.dom ? '700' : '500'} 17.5px Plus Jakarta Sans, sans-serif`;
+    ctx.textAlign = 'left';
+    ctx.fillText(b.label, barLeft, by);
+
+    ctx.fillStyle = b.dom ? C_PRIMARY : C_MUTED;
+    ctx.font = '700 17.5px Plus Jakarta Sans, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(`${b.val}%`, barLeft + barW + 125, by);
+
+    // Track
+    ctx.fillStyle = C_BORDER;
+    roundRect(ctx, barLeft, by + 8, barW, barH, 6);
+    ctx.fill();
+
+    // Fill
+    ctx.fillStyle = b.dom ? C_PRIMARY : '#CDB9C0';
+    const fw = Math.max((b.val / 100) * barW, barH);
+    roundRect(ctx, barLeft, by + 8, fw, barH, 6);
+    ctx.fill();
+  });
+
+  curY = chartCardY + chartCardH + 18;
+
+  // 3. POTENTIALS CARD
+  const potCardY = curY;
+  const potCardH = 180;
+
+  ctx.fillStyle = C_WHITE;
+  roundRect(ctx, cardX, potCardY, cardW, potCardH, 20);
+  ctx.fill();
+  ctx.strokeStyle = C_BORDER;
+  ctx.lineWidth = 1;
+  roundRect(ctx, cardX, potCardY, cardW, potCardH, 20);
+  ctx.stroke();
+
+  ctx.fillStyle = C_TEXT;
+  ctx.font = '700 23px Plus Jakarta Sans, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('Potensi yang dapat dikembangkan', cardX + 45, potCardY + 44);
+
+  const pots = profile.potentials;
+  const potCols = 2;
+  const potGap = 20;
+  const potW = (cardW - 90 - potGap) / potCols;
+  pots.forEach((p, i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const px = cardX + 45 + col * (potW + potGap);
+    const py = potCardY + 66 + row * 52;
+
+    ctx.fillStyle = C_PRIMARY_LIGHT;
+    roundRect(ctx, px, py, potW, 42, 10);
+    ctx.fill();
+    ctx.strokeStyle = '#E8C5D0';
+    ctx.lineWidth = 1;
+    roundRect(ctx, px, py, potW, 42, 10);
+    ctx.stroke();
+
+    // Dot
+    ctx.fillStyle = C_PRIMARY;
+    ctx.beginPath();
+    ctx.arc(px + 18, py + 21, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = C_TEXT;
+    ctx.font = '600 16.5px Plus Jakarta Sans, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(p, px + 34, py + 27);
+  });
+
+  curY = potCardY + potCardH + 18;
+
+  // 4. REKOMENDASI CARD
+  const rekCardY = curY;
+  ctx.font = '500 17.5px Plus Jakarta Sans, sans-serif';
+  const rekLines = wrapText(ctx, profile.rekomendasi, 860);
+  const rekLineH = 26;
+  const rekCardH = Math.max(130, 60 + rekLines.length * rekLineH + 20);
+
+  ctx.fillStyle = C_PRIMARY_LIGHT;
+  roundRect(ctx, cardX, rekCardY, cardW, rekCardH, 20);
+  ctx.fill();
+  ctx.strokeStyle = '#E8C5D0';
+  ctx.lineWidth = 1;
+  roundRect(ctx, cardX, rekCardY, cardW, rekCardH, 20);
+  ctx.stroke();
+
+  ctx.fillStyle = C_PRIMARY;
+  ctx.font = '700 20px Plus Jakarta Sans, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('Rekomendasi Eksplorasi', cardX + 45, rekCardY + 40);
+
+  ctx.fillStyle = C_MUTED;
+  ctx.font = '500 17px Plus Jakarta Sans, sans-serif';
+  rekLines.forEach((line, i) => {
+    ctx.fillText(line, cardX + 45, rekCardY + 70 + i * rekLineH);
+  });
+
+  curY = rekCardY + rekCardH + 18;
+
+  // 5. FOOTER CTA STRIP
+  const footerY = curY;
+  const footerH = 135;
+  ctx.fillStyle = C_PRIMARY;
+  roundRect(ctx, cardX, footerY, cardW, footerH, 20);
+  ctx.fill();
+
+  ctx.fillStyle = C_WHITE;
+  ctx.font = '700 22px Plus Jakarta Sans, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Yuk, Eksplorasi Secara Langsung! Hubungi Algonova via WhatsApp', 540, footerY + 44);
+
+  ctx.fillStyle = C_WHITE;
+  ctx.font = '800 21px Plus Jakarta Sans, sans-serif';
+  ctx.fillText('+62 812-6988-5255  •  wa.me/6281269885255', 540, footerY + 78);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.78)';
+  ctx.font = '500 15.5px Plus Jakarta Sans, sans-serif';
+  ctx.fillText(`${nama} • ${usia} Tahun • ${sekolah} • ${formatDateID(new Date())}`, 540, footerY + 108);
+
+  // ---- DOWNLOAD ----
+  const link = document.createElement('a');
+  link.download = `algonova-assessment-${nama.replace(/\s/g,'-').toLowerCase()}.jpg`;
+  link.href = canvas.toDataURL('image/jpeg', 0.94);
+  link.click();
+  showToast('Gambar JPEG berhasil diunduh!');
+}
+
+function drawCanvasFallbackLogo(ctx, x, y, size) {
+  // Just "A" cleanly without black box!
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '800 48px Plus Jakarta Sans, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('A', x + size / 2, y + size / 2);
+  ctx.textBaseline = 'alphabetic';
+}
+
+// ---- CANVAS HELPERS ----
+function roundRect(ctx, x, y, w, h, r) {
+  if (w <= 0 || h <= 0) return;
+  const maxR = Math.min(Math.abs(w) / 2, Math.abs(h) / 2);
+  const radius = Math.min(Math.max(0, r), maxR);
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + w - radius, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+  ctx.lineTo(x + w, y + h - radius);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+  ctx.lineTo(x + radius, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+}
+
+function roundedPill(ctx, x, y, w, h, r) {
+  roundRect(ctx, x, y, w, h, r || (h / 2));
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  words.forEach(word => {
+    const test = current ? current + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = test;
+    }
+  });
+  if (current) lines.push(current);
+  return lines;
+}
+</script>
+
+<script>
+/* ===================================================================
+   DOWNLOAD PDF (A4) — jsPDF
+=================================================================== */
+async function downloadPDF() {
+  if (!window.jspdf) {
+    showToast('Library PDF sedang dimuat, coba lagi sesaat.');
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const { dominant, pct } = state.result;
+  const { nama, usia, sekolah } = state.peserta;
+  const profile = PROFILES[dominant];
+
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, H = 297;
+  const margin = 18;
+  const col = W - margin * 2;
+
+  // ---- HEADER STRIP ----
+  doc.setFillColor(107, 29, 58);
+  doc.rect(0, 0, W, 36, 'F');
+
+  // Logo: Load user image if present in the same directory, else fallback to just white 'A'
+  const logoImg = await loadLogoImage();
+  let logoDrawn = false;
+  if (logoImg) {
+    try {
+      const aspect = (logoImg.width && logoImg.height) ? (logoImg.width / logoImg.height) : 1;
+      let imgW = 20, imgH = 20;
+      if (aspect > 1) {
+        imgH = 20 / aspect;
+      } else {
+        imgW = 20 * aspect;
+      }
+      const imgX = margin + (20 - imgW) / 2;
+      const imgY = 8 + (20 - imgH) / 2;
+      const format = (logoImg.src.indexOf('.jpg') !== -1 || logoImg.src.indexOf('.jpeg') !== -1) ? 'JPEG' : 'PNG';
+      doc.addImage(logoImg, format, imgX, imgY, imgW, imgH);
+      logoDrawn = true;
+    } catch (e) {
+      logoDrawn = false;
+    }
+  }
+
+  if (!logoDrawn) {
+    // Just "A" cleanly without black box!
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(22);
+    doc.setFont('helvetica', 'bold');
+    doc.text('A', margin + 6, 23);
+  }
+
+  // Brand name
+  doc.setFontSize(13);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('ALGONOVA', margin + 24, 17);
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(225, 195, 205);
+  doc.text('LEARNING ASSESSMENT', margin + 24, 23);
+
+  // ET badge
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('ET', W - margin - 5, 21, { align: 'right' });
+
+  // Date top right
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(200, 170, 180);
+  doc.text(formatDateID(new Date()), W - margin, 29, { align: 'right' });
+
+  let y = 46;
+
+  // ---- TITLE SECTION ----
+  doc.setFillColor(253, 242, 245);
+  doc.setDrawColor(232, 197, 208);
+  doc.roundedRect(margin, y, col, 28, 4, 4, 'FD');
+  doc.setTextColor(107, 29, 58);
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'bold');
+  doc.text('HASIL MINI INTEREST ASSESSMENT', margin + col / 2, y + 8, { align: 'center' });
+  doc.setFontSize(15);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 21, 24);
+  doc.text(`Hasil untuk ${nama}`, margin + col / 2, y + 20, { align: 'center' });
+  y += 34;
+
+  // Meta info
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(110, 93, 99);
+  doc.text(`${usia} Tahun  •  ${sekolah}  •  ${formatDateID(new Date())}`, margin + col / 2, y, { align: 'center' });
+  y += 10;
+
+  // ---- DOMINANT RESULT CARD ----
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(232, 197, 208);
+  doc.roundedRect(margin, y, col, 44, 4, 4, 'FD');
+  // Left accent bar
+  doc.setFillColor(107, 29, 58);
+  doc.rect(margin, y, 4, 44, 'F');
+
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(110, 93, 99);
+  doc.text('KECENDERUNGAN SAAT INI', margin + 10, y + 9);
+
+  doc.setFontSize(22);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(107, 29, 58);
+  doc.text(dominant, margin + 10, y + 24);
+
+  // Pill
+  const pillLabel = `Kecenderungan Minat: ${dominant}`;
+  const pillW2 = doc.getTextWidth(pillLabel) + 12;
+  doc.setFillColor(107, 29, 58);
+  doc.roundedRect(margin + 10, y + 28, pillW2, 8, 4, 4, 'F');
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text(pillLabel, margin + 16, y + 34);
+
+  y += 50;
+
+  // ---- DESC ----
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(30, 21, 24);
+  const descLines2 = doc.splitTextToSize(profile.descMain, col);
+  doc.text(descLines2, margin, y);
+  y += descLines2.length * 5 + 6;
+
+  // ---- CHART ----
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(235, 228, 231);
+  doc.roundedRect(margin, y, col, 48, 4, 4, 'FD');
+
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 21, 24);
+  doc.text('Kecenderungan Minat', margin + 8, y + 9);
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(110, 93, 99);
+  doc.text('Total persentase 100% dari 10 indikator jawaban', margin + 8, y + 16);
+
+  const chartBars2 = [
+    { label: 'Math', val: pct.MATH, dom: dominant === 'MATH' },
+    { label: 'Coding', val: pct.CODING, dom: dominant === 'CODING' },
+    { label: 'Design', val: pct.DESIGN, dom: dominant === 'DESIGN' }
+  ];
+  const barLeft2 = margin + 8, barW2 = col - 36, barH2 = 5;
+  chartBars2.forEach((b, i) => {
+    const by2 = y + 22 + i * 9;
+    doc.setFontSize(8);
+    doc.setFont('helvetica', b.dom ? 'bold' : 'normal');
+    doc.setTextColor(b.dom ? 107 : 110, b.dom ? 29 : 93, b.dom ? 58 : 99);
+    doc.text(b.label, barLeft2, by2 + 4);
+    doc.setTextColor(b.dom ? 107 : 110, b.dom ? 29 : 110, b.dom ? 58 : 99);
+    doc.text(`${b.val}%`, barLeft2 + barW2 + 12, by2 + 4);
+    // Track
+    doc.setFillColor(235, 228, 231);
+    doc.roundedRect(barLeft2 + 22, by2, barW2, barH2, 2, 2, 'F');
+    // Fill
+    doc.setFillColor(b.dom ? 107 : 196, b.dom ? 29 : 166, b.dom ? 58 : 176);
+    doc.roundedRect(barLeft2 + 22, by2, Math.max((b.val / 100) * barW2, 3), barH2, 2, 2, 'F');
+  });
+  y += 54;
+
+  // ---- WHAT IT MEANS ----
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(235, 228, 231);
+  const subDescLines = doc.splitTextToSize(profile.subdesc, col - 16);
+  doc.roundedRect(margin, y, col, 14 + subDescLines.length * 5, 4, 4, 'FD');
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 21, 24);
+  doc.text('Apa artinya?', margin + 8, y + 9);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(110, 93, 99);
+  doc.text(subDescLines, margin + 8, y + 17);
+  y += 14 + subDescLines.length * 5 + 6;
+
+  // ---- POTENTIALS ----
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(235, 228, 231);
+  doc.roundedRect(margin, y, col, 38, 4, 4, 'FD');
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 21, 24);
+  doc.text('Potensi yang dapat dikembangkan', margin + 8, y + 9);
+  const potHalf = (col - 16 - 8) / 2;
+  profile.potentials.forEach((p, i) => {
+    const col2 = i % 2, row2 = Math.floor(i / 2);
+    const px2 = margin + 8 + col2 * (potHalf + 8);
+    const py2 = y + 14 + row2 * 11;
+    doc.setFillColor(253, 242, 245);
+    doc.setDrawColor(232, 197, 208);
+    doc.roundedRect(px2, py2, potHalf, 9, 2, 2, 'FD');
+    doc.setFillColor(107, 29, 58);
+    doc.circle(px2 + 5, py2 + 4.5, 1.2, 'F');
+    doc.setFontSize(7.5);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 21, 24);
+    doc.text(p, px2 + 9, py2 + 6.5);
+  });
+  y += 44;
+
+  // ---- REKOMENDASI ----
+  doc.setFillColor(253, 242, 245);
+  doc.setDrawColor(232, 197, 208);
+  const rekLines = doc.splitTextToSize(profile.rekomendasi, col - 16);
+  doc.roundedRect(margin, y, col, 13 + rekLines.length * 5, 4, 4, 'FD');
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(107, 29, 58);
+  doc.text('Rekomendasi Eksplorasi', margin + 8, y + 8);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(110, 93, 99);
+  doc.text(rekLines, margin + 8, y + 16);
+  y += 13 + rekLines.length * 5 + 6;
+
+  // ---- FOOTER CTA ----
+  const remaining = H - 14 - y;
+  const ctaH = Math.max(remaining, 26);
+  doc.setFillColor(107, 29, 58);
+  doc.roundedRect(margin, y, col, ctaH, 4, 4, 'F');
+  doc.setFontSize(9.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('Yuk, Eksplorasi Secara Langsung!', margin + col / 2, y + 10, { align: 'center' });
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(220, 190, 200);
+  doc.text('Hubungi Algonova via WhatsApp:', margin + col / 2, y + 17, { align: 'center' });
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('+62 812-6988-5255', margin + col / 2, y + 24, { align: 'center' });
+
+  // ---- SAVE ----
+  doc.save(`algonova-assessment-${nama.replace(/\s/g, '-').toLowerCase()}.pdf`);
+  showToast('PDF berhasil diunduh!');
+}
+</script>
+</body>
+</html>
