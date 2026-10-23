@@ -1,0 +1,11 @@
+# Vercel
+.vercel
+
+# System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup & Scratch
+*.bak
+*.tmp
