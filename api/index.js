@@ -12,29 +12,57 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'abingdanadiks123';
 // In-memory fallback if Neon DB is not yet connected
 let memoryParticipants = [];
 let sqlClient = null;
+let lastInitError = null;
 let dbInitialized = false;
 
-// Clean DATABASE_URL (removes accidental quotes and whitespaces)
-function getCleanDatabaseUrl() {
-  let url = process.env.DATABASE_URL;
-  if (!url) return null;
-  url = url.trim();
-  if ((url.startsWith('"') && url.endsWith('"')) || (url.startsWith("'") && url.endsWith("'"))) {
-    url = url.slice(1, -1).trim();
+// Robust connection string sanitizer
+function sanitizeDbUrl(raw) {
+  if (!raw) return null;
+  let s = String(raw).trim();
+  // Strip outer quotes
+  s = s.replace(/^["']+|["']+$/g, '').trim();
+  // Strip DATABASE_URL= prefix if accidentally included
+  if (s.startsWith('DATABASE_URL=')) {
+    s = s.slice('DATABASE_URL='.length).trim();
+    s = s.replace(/^["']+|["']+$/g, '').trim();
   }
-  return url || null;
+  // If user copied "psql 'postgresql://...'"
+  const psqlMatch = s.match(/psql\s+['"]?(postgres(?:ql)?:\/\/[^'"\s]+)['"]?/i);
+  if (psqlMatch) {
+    s = psqlMatch[1];
+  }
+  // Find URL starting with postgresql:// or postgres://
+  const urlMatch = s.match(/(postgres(?:ql)?:\/\/[^\s'"]+)/i);
+  if (urlMatch) {
+    s = urlMatch[1];
+  }
+  // Ensure sslmode=require for Neon DB if not present
+  if (s && s.includes('neon.tech') && !s.includes('sslmode=')) {
+    s += (s.includes('?') ? '&' : '?') + 'sslmode=require';
+  }
+  return s.trim();
 }
 
 // Get Neon client instance
 function getSql() {
-  const url = getCleanDatabaseUrl();
-  if (!url) return null;
+  const raw = process.env.DATABASE_URL;
+  if (!raw) {
+    lastInitError = 'DATABASE_URL environment variable is empty or undefined';
+    return null;
+  }
+  const url = sanitizeDbUrl(raw);
+  if (!url) {
+    lastInitError = 'DATABASE_URL could not be parsed into a valid postgresql:// URL';
+    return null;
+  }
   if (!sqlClient) {
     try {
       const { neon } = require('@neondatabase/serverless');
       sqlClient = neon(url);
+      lastInitError = null;
     } catch (err) {
       console.error('Failed to initialize Neon DB client:', err);
+      lastInitError = err.message;
       return null;
     }
   }
@@ -43,7 +71,7 @@ function getSql() {
 
 // Ensure participants table exists
 async function ensureTable(client) {
-  if (!client || dbInitialized) return;
+  if (!client || typeof client !== 'function' || dbInitialized) return;
   try {
     await client`
       CREATE TABLE IF NOT EXISTS participants (
@@ -91,14 +119,24 @@ function requireAdmin(req, res, next) {
 
 // 1. Health & Database Diagnostic
 app.get('/api/health', async (req, res) => {
-  const client = getSql();
-  const dbUrl = getCleanDatabaseUrl();
-
-  if (!dbUrl) {
+  const raw = process.env.DATABASE_URL;
+  if (!raw) {
     return res.json({
       status: 'warning',
       database: 'not_configured',
       message: 'DATABASE_URL belum diatur di Vercel Environment Variables. Data saat ini disimpan sementara di memori.',
+      hint: 'Tambahkan DATABASE_URL di Vercel Project Settings -> Environment Variables, lalu lakukan Redeploy.',
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  const client = getSql();
+  if (!client || typeof client !== 'function') {
+    return res.status(500).json({
+      status: 'error',
+      database: 'neon_error',
+      message: 'Format DATABASE_URL tidak valid: ' + (lastInitError || 'Gagal inisialisasi client'),
+      hint: 'Pastikan connection string di Vercel diawali dengan postgresql://',
       timestamp: new Date().toISOString()
     });
   }
@@ -117,7 +155,8 @@ app.get('/api/health', async (req, res) => {
     return res.status(500).json({
       status: 'error',
       database: 'neon_error',
-      message: 'Gagal terhubung ke Neon DB: ' + err.message,
+      message: 'Gagal query ke Neon DB: ' + err.message,
+      hint: 'Periksa apakah database di Neon masih aktif atau password database benar.',
       timestamp: new Date().toISOString()
     });
   }
@@ -140,7 +179,7 @@ app.post('/api/submit', async (req, res) => {
 
     const client = getSql();
 
-    if (client) {
+    if (client && typeof client === 'function') {
       await ensureTable(client);
       const result = await client`
         INSERT INTO participants (tanggal, nama, usia, sekolah, wa, math, coding, design, dominan)
@@ -155,8 +194,7 @@ app.post('/api/submit', async (req, res) => {
         message: 'Jawaban berhasil disimpan secara permanen ke Neon DB.'
       });
     } else {
-      // Fallback in-memory jika DATABASE_URL belum di-setting
-      console.warn('DATABASE_URL is not configured! Saving temporarily to memory.');
+      console.warn('DATABASE_URL is not configured or failed to initialize! Saving temporarily to memory.');
       const newEntry = {
         id: Date.now(),
         created_at: new Date().toISOString(),
@@ -175,7 +213,7 @@ app.post('/api/submit', async (req, res) => {
         success: true,
         id: newEntry.id,
         storage: 'fallback-memory',
-        message: 'PERINGATAN: DATABASE_URL belum diset di Vercel. Disimpan sementara di memori.'
+        message: 'PERINGATAN: DATABASE_URL belum tersambung ke Neon DB. Disimpan sementara di memori.'
       });
     }
   } catch (err) {
@@ -201,7 +239,7 @@ app.post('/api/admin/login', (req, res) => {
 app.get('/api/admin/participants', requireAdmin, async (req, res) => {
   try {
     const client = getSql();
-    if (client) {
+    if (client && typeof client === 'function') {
       await ensureTable(client);
       const rows = await client`
         SELECT id, tanggal, nama, usia, sekolah, wa, math, coding, design, dominan, created_at
@@ -223,7 +261,7 @@ app.delete('/api/admin/participants/:id', requireAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const client = getSql();
-    if (client) {
+    if (client && typeof client === 'function') {
       await ensureTable(client);
       await client`DELETE FROM participants WHERE id = ${id};`;
       return res.json({ success: true, message: 'Data peserta berhasil dihapus dari Neon DB.' });
@@ -241,7 +279,7 @@ app.delete('/api/admin/participants/:id', requireAdmin, async (req, res) => {
 app.delete('/api/admin/clear-all', requireAdmin, async (req, res) => {
   try {
     const client = getSql();
-    if (client) {
+    if (client && typeof client === 'function') {
       await ensureTable(client);
       await client`TRUNCATE TABLE participants;`;
       return res.json({ success: true, message: 'Semua data peserta berhasil dihapus dari Neon DB.' });
