@@ -8,29 +8,44 @@ app.use(cors());
 app.use(express.json());
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'abingdanadiks123';
-const DATABASE_URL = process.env.DATABASE_URL;
-
-// Helper to get Neon SQL client if configured
-let sql = null;
-let dbInitialized = false;
-
-if (DATABASE_URL) {
-  try {
-    const { neon } = require('@neondatabase/serverless');
-    sql = neon(DATABASE_URL);
-  } catch (err) {
-    console.error('Failed to initialize Neon DB client:', err);
-  }
-}
 
 // In-memory fallback if Neon DB is not yet connected
 let memoryParticipants = [];
+let sqlClient = null;
+let dbInitialized = false;
 
-// Ensure table exists in Neon DB
-async function ensureTable() {
-  if (!sql || dbInitialized) return;
+// Clean DATABASE_URL (removes accidental quotes and whitespaces)
+function getCleanDatabaseUrl() {
+  let url = process.env.DATABASE_URL;
+  if (!url) return null;
+  url = url.trim();
+  if ((url.startsWith('"') && url.endsWith('"')) || (url.startsWith("'") && url.endsWith("'"))) {
+    url = url.slice(1, -1).trim();
+  }
+  return url || null;
+}
+
+// Get Neon client instance
+function getSql() {
+  const url = getCleanDatabaseUrl();
+  if (!url) return null;
+  if (!sqlClient) {
+    try {
+      const { neon } = require('@neondatabase/serverless');
+      sqlClient = neon(url);
+    } catch (err) {
+      console.error('Failed to initialize Neon DB client:', err);
+      return null;
+    }
+  }
+  return sqlClient;
+}
+
+// Ensure participants table exists
+async function ensureTable(client) {
+  if (!client || dbInitialized) return;
   try {
-    await sql`
+    await client`
       CREATE TABLE IF NOT EXISTS participants (
         id BIGSERIAL PRIMARY KEY,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -46,9 +61,10 @@ async function ensureTable() {
       );
     `;
     dbInitialized = true;
-    console.log('Neon DB participants table verified/created.');
+    console.log('Neon DB participants table verified/created successfully.');
   } catch (err) {
     console.error('Error ensuring Neon DB table:', err);
+    throw err;
   }
 }
 
@@ -73,13 +89,38 @@ function requireAdmin(req, res, next) {
 
 // ---- ROUTES ----
 
-// 1. Health & Status
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    database: sql ? 'neon' : 'fallback-memory',
-    timestamp: new Date().toISOString()
-  });
+// 1. Health & Database Diagnostic
+app.get('/api/health', async (req, res) => {
+  const client = getSql();
+  const dbUrl = getCleanDatabaseUrl();
+
+  if (!dbUrl) {
+    return res.json({
+      status: 'warning',
+      database: 'not_configured',
+      message: 'DATABASE_URL belum diatur di Vercel Environment Variables. Data saat ini disimpan sementara di memori.',
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  try {
+    await ensureTable(client);
+    const countResult = await client`SELECT COUNT(*)::int as count FROM participants;`;
+    return res.json({
+      status: 'ok',
+      database: 'neon_connected',
+      participantCount: countResult[0].count,
+      message: 'Koneksi ke Neon DB PostgreSQL berhasil dan tabel aktif.',
+      timestamp: new Date().toISOString()
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      database: 'neon_error',
+      message: 'Gagal terhubung ke Neon DB: ' + err.message,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // 2. Submit Participant Assessment
@@ -97,9 +138,11 @@ app.post('/api/submit', async (req, res) => {
       year: 'numeric'
     });
 
-    if (sql) {
-      await ensureTable();
-      const result = await sql`
+    const client = getSql();
+
+    if (client) {
+      await ensureTable(client);
+      const result = await client`
         INSERT INTO participants (tanggal, nama, usia, sekolah, wa, math, coding, design, dominan)
         VALUES (${entryTanggal}, ${nama}, ${String(usia)}, ${sekolah || 'Tidak Dicantumkan'}, ${wa}, ${Number(math)}, ${Number(coding)}, ${Number(design)}, ${dominan})
         RETURNING id, created_at;
@@ -109,10 +152,11 @@ app.post('/api/submit', async (req, res) => {
         success: true,
         id: inserted.id,
         storage: 'neon',
-        message: 'Jawaban berhasil disimpan ke Neon DB.'
+        message: 'Jawaban berhasil disimpan secara permanen ke Neon DB.'
       });
     } else {
-      // Fallback in-memory
+      // Fallback in-memory jika DATABASE_URL belum di-setting
+      console.warn('DATABASE_URL is not configured! Saving temporarily to memory.');
       const newEntry = {
         id: Date.now(),
         created_at: new Date().toISOString(),
@@ -131,12 +175,12 @@ app.post('/api/submit', async (req, res) => {
         success: true,
         id: newEntry.id,
         storage: 'fallback-memory',
-        message: 'Jawaban berhasil disimpan (fallback memori).'
+        message: 'PERINGATAN: DATABASE_URL belum diset di Vercel. Disimpan sementara di memori.'
       });
     }
   } catch (err) {
     console.error('Error on /api/submit:', err);
-    res.status(500).json({ success: false, message: 'Terjadi kesalahan pada server saat menyimpan data.' });
+    res.status(500).json({ success: false, message: 'Terjadi kesalahan pada server saat menyimpan data: ' + err.message });
   }
 });
 
@@ -156,9 +200,10 @@ app.post('/api/admin/login', (req, res) => {
 // 4. Admin: Get All Participants
 app.get('/api/admin/participants', requireAdmin, async (req, res) => {
   try {
-    if (sql) {
-      await ensureTable();
-      const rows = await sql`
+    const client = getSql();
+    if (client) {
+      await ensureTable(client);
+      const rows = await client`
         SELECT id, tanggal, nama, usia, sekolah, wa, math, coding, design, dominan, created_at
         FROM participants
         ORDER BY id DESC;
@@ -169,7 +214,7 @@ app.get('/api/admin/participants', requireAdmin, async (req, res) => {
     }
   } catch (err) {
     console.error('Error on /api/admin/participants:', err);
-    res.status(500).json({ success: false, message: 'Gagal mengambil data peserta.' });
+    res.status(500).json({ success: false, message: 'Gagal mengambil data peserta: ' + err.message });
   }
 });
 
@@ -177,9 +222,10 @@ app.get('/api/admin/participants', requireAdmin, async (req, res) => {
 app.delete('/api/admin/participants/:id', requireAdmin, async (req, res) => {
   try {
     const id = req.params.id;
-    if (sql) {
-      await ensureTable();
-      await sql`DELETE FROM participants WHERE id = ${id};`;
+    const client = getSql();
+    if (client) {
+      await ensureTable(client);
+      await client`DELETE FROM participants WHERE id = ${id};`;
       return res.json({ success: true, message: 'Data peserta berhasil dihapus dari Neon DB.' });
     } else {
       memoryParticipants = memoryParticipants.filter(p => String(p.id) !== String(id));
@@ -187,16 +233,17 @@ app.delete('/api/admin/participants/:id', requireAdmin, async (req, res) => {
     }
   } catch (err) {
     console.error('Error on DELETE /api/admin/participants/:id:', err);
-    res.status(500).json({ success: false, message: 'Gagal menghapus data peserta.' });
+    res.status(500).json({ success: false, message: 'Gagal menghapus data peserta: ' + err.message });
   }
 });
 
 // 6. Admin: Clear All Participants
 app.delete('/api/admin/clear-all', requireAdmin, async (req, res) => {
   try {
-    if (sql) {
-      await ensureTable();
-      await sql`TRUNCATE TABLE participants;`;
+    const client = getSql();
+    if (client) {
+      await ensureTable(client);
+      await client`TRUNCATE TABLE participants;`;
       return res.json({ success: true, message: 'Semua data peserta berhasil dihapus dari Neon DB.' });
     } else {
       memoryParticipants = [];
@@ -204,7 +251,7 @@ app.delete('/api/admin/clear-all', requireAdmin, async (req, res) => {
     }
   } catch (err) {
     console.error('Error on DELETE /api/admin/clear-all:', err);
-    res.status(500).json({ success: false, message: 'Gagal membersihkan data peserta.' });
+    res.status(500).json({ success: false, message: 'Gagal membersihkan data peserta: ' + err.message });
   }
 });
 

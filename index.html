@@ -1446,6 +1446,12 @@
     </header>
 
     <div class="container">
+      <!-- DATABASE STATUS INDICATOR -->
+      <div id="admin-db-status" style="margin-bottom:14px;padding:9px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:space-between;background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;">
+        <span id="admin-db-status-text">Memeriksa status penyimpanan cloud...</span>
+        <span id="admin-db-badge" style="font-size:11px;padding:2px 8px;border-radius:99px;background:#DCFCE7;color:#15803D;">Memeriksa</span>
+      </div>
+
       <!-- KPI STATS CARDS -->
       <div class="admin-kpi-grid">
         <div class="admin-kpi-card">
@@ -1850,7 +1856,11 @@ async function saveSubmissionData() {
       body: JSON.stringify(entry)
     });
     if (!res.ok) {
-      console.warn('Backend sync returned status:', res.status);
+      const errJson = await res.json().catch(() => ({}));
+      console.warn('Backend sync returned status:', res.status, errJson);
+    } else {
+      const resJson = await res.json();
+      console.log('Data successfully saved:', resJson);
     }
   } catch (err) {
     console.warn('API /api/submit offline/unreachable, tersimpan di localStorage:', err);
@@ -1978,6 +1988,7 @@ async function loadAdminData() {
   const pass = sessionStorage.getItem('algonova_admin_token') || 'abingdanadiks123';
   let participants = [];
   let apiSuccess = false;
+  let storageMode = 'local';
 
   try {
     const res = await fetch('/api/admin/participants', {
@@ -1988,6 +1999,7 @@ async function loadAdminData() {
       if (json.success && Array.isArray(json.data)) {
         participants = json.data;
         apiSuccess = true;
+        storageMode = json.storage || 'neon';
       }
     }
   } catch (err) {
@@ -1997,6 +2009,30 @@ async function loadAdminData() {
   // Jika API offline atau gagal terhubung, gunakan localStorage
   if (!apiSuccess) {
     participants = JSON.parse(localStorage.getItem('algonova_data') || '[]');
+  }
+
+  // Update status badge di Admin Dashboard
+  const statusEl = document.getElementById('admin-db-status');
+  const textEl = document.getElementById('admin-db-status-text');
+  const badgeEl = document.getElementById('admin-db-badge');
+  if (statusEl && textEl && badgeEl) {
+    if (storageMode === 'neon') {
+      statusEl.style.background = '#F0FDF4';
+      statusEl.style.color = '#15803D';
+      statusEl.style.borderColor = '#BBF7D0';
+      textEl.textContent = 'Data tersimpan aman & permanen di database cloud';
+      badgeEl.textContent = 'Neon DB Connected';
+      badgeEl.style.background = '#DCFCE7';
+      badgeEl.style.color = '#15803D';
+    } else {
+      statusEl.style.background = '#FEF2F2';
+      statusEl.style.color = '#B91C1C';
+      statusEl.style.borderColor = '#FECACA';
+      textEl.textContent = 'PERHATIAN: DATABASE_URL belum diatur di Vercel. Data disimpan sementara!';
+      badgeEl.textContent = 'Mode Sementara (RAM)';
+      badgeEl.style.background = '#FEE2E2';
+      badgeEl.style.color = '#B91C1C';
+    }
   }
 
   state.adminData = participants;
